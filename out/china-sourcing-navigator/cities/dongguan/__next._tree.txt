@@ -1,0 +1,4 @@
+:HL["./_next/static/chunks/f42a25a5e3dee938.css","style"]
+:HL["https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap","style"]
+:HL["/images/wf-logo-reversed.png","image"]
+0:{"buildId":"CmcQImSfl7BRMOXO5nQJl","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"china-sourcing-navigator","paramType":null,"paramKey":"china-sourcing-navigator","hasRuntimePrefetch":false,"slots":{"children":{"name":"cities","paramType":null,"paramKey":"cities","hasRuntimePrefetch":false,"slots":{"children":{"name":"city","paramType":"d","paramKey":"dongguan","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":true},"staleTime":300}

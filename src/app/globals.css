@@ -1,0 +1,156 @@
+@import "tailwindcss";
+
+@theme {
+  /* WorldFirst Brand Colors — from worldfirst.com */
+  --color-wf-red: #FF0051;
+  --color-wf-red-dark: #E5123B;
+  --color-wf-red-hover: #E0004A;
+  --color-wf-gradient-end: #13002D;
+
+  --color-wf-text: #1F2323;
+  --color-wf-text-alt: #262626;
+  --color-wf-text-secondary: #484F56;
+  --color-wf-text-muted: #69727D;
+  --color-wf-text-light: #626262;
+
+  --color-wf-bg: #FFFFFF;
+  --color-wf-bg-light: #F5F6F7;
+  --color-wf-bg-card: #F7F7F7;
+  --color-wf-bg-warm: #FAF9F5;
+  --color-wf-border: #ECEDEE;
+
+  --color-wf-footer: #1F2323;
+  --color-wf-success: #10b981;
+  --color-wf-warning: #f59e0b;
+
+  /* Purple gradient tones (from reference design) */
+  --color-wf-purple-deep: #13002D;
+  --color-wf-purple-mid: #2D1052;
+  --color-wf-purple-accent: #7B2FBE;
+
+  /* Fonts — Poppins matching WF */
+  --font-sans: 'Poppins', system-ui, -apple-system, sans-serif;
+}
+
+/* Base */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-wf-bg);
+  color: var(--color-wf-text);
+}
+
+/* WF accent word pattern — highlight a keyword in headings */
+.accent-word {
+  color: var(--color-wf-red);
+}
+
+/* WF gradient text (UK hero style) */
+.gradient-text {
+  background: linear-gradient(125deg, #FF0051 56.31%, #13002D 124.43%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Dark purple gradient background (from WF reference design) */
+.bg-wf-purple-gradient {
+  background: linear-gradient(135deg, #13002D 0%, #2D1052 40%, #1a0a3e 70%, #13002D 100%);
+}
+
+/* Subtle radial glow for purple sections */
+.bg-wf-purple-glow {
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(123, 47, 190, 0.15) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(255, 0, 81, 0.08) 0%, transparent 50%),
+    linear-gradient(135deg, #13002D 0%, #2D1052 40%, #1a0a3e 70%, #13002D 100%);
+}
+
+/* Card hover */
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Pill button base */
+.btn-pill {
+  border-radius: 50px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+/* Canton Fair pulse */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.canton-pulse {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* City card — image background with hover zoom */
+.city-card {
+  transition: box-shadow 0.3s ease;
+}
+
+.city-card:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Horizontal scroll — hide scrollbar */
+.scroll-container {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Scroll arrow buttons */
+.scroll-arrow {
+  transition: all 0.2s ease;
+}
+
+.scroll-arrow:hover {
+  background-color: var(--color-wf-red);
+  color: white;
+  border-color: var(--color-wf-red);
+}
+
+.scroll-arrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Subtle section divider */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-wf-border), transparent);
+}
+
+/* Feature slide indicator */
+.slide-indicator {
+  transition: all 0.3s ease;
+}
+
+.slide-indicator.active {
+  background-color: #FF0051;
+  width: 24px;
+}
+
+/* Stat number styling for dark sections */
+.stat-number {
+  background: linear-gradient(135deg, #FFFFFF 0%, rgba(255, 255, 255, 0.8) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
