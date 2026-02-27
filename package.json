@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "next dev",
+    "dev": "npx serve out -l 3000 --no-clipboard",
+    "dev:next": "next dev",
     "build": "next build",
     "start": "next start"
   },

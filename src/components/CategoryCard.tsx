@@ -12,15 +12,15 @@ export default function CategoryCard({
   slug,
 }: CategoryCardProps) {
   return (
-    <Link href={`/china-sourcing-navigator/categories/${slug}`}>
-      <div className="group flex items-center justify-between bg-white border border-wf-border rounded-xl px-5 py-4 hover:border-wf-red/30 hover:shadow-sm transition-all duration-200 cursor-pointer">
-        <span className="text-wf-text font-medium text-[15px] group-hover:text-wf-red transition-colors">
+    <Link href={`/categories/${slug}`}>
+      <div className="group flex items-center justify-between bg-white border border-wf-border rounded-xl px-3 py-2.5 md:px-5 md:py-4 hover:border-wf-red/30 hover:shadow-sm transition-all duration-200 cursor-pointer h-[52px] md:h-auto">
+        <span className="text-wf-text font-medium text-xs md:text-[15px] group-hover:text-wf-red transition-colors line-clamp-2 leading-tight">
           {name}
         </span>
         <svg
-          className="text-wf-text-muted group-hover:text-wf-red group-hover:translate-x-1 transition-all duration-200 flex-shrink-0"
-          width="18"
-          height="18"
+          className="text-wf-text-muted group-hover:text-wf-red group-hover:translate-x-1 transition-all duration-200 flex-shrink-0 ml-1"
+          width="14"
+          height="14"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"

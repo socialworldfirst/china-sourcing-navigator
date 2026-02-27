@@ -1,4 +1,5 @@
 import Link from "next/link";
+import basePath from "@/lib/basePath";
 
 export default function Footer() {
   return (
@@ -42,13 +43,13 @@ export default function Footer() {
             <h4 className="font-medium text-sm mb-4">Navigator</h4>
             <ul className="space-y-2.5">
               {[
-                ["Guangzhou", "/china-sourcing-navigator/cities/guangzhou"],
-                ["Shenzhen", "/china-sourcing-navigator/cities/shenzhen"],
-                ["Dongguan", "/china-sourcing-navigator/cities/dongguan"],
-                ["Foshan", "/china-sourcing-navigator/cities/foshan"],
-                ["Yiwu", "/china-sourcing-navigator/cities/yiwu"],
-                ["Ningbo", "/china-sourcing-navigator/cities/ningbo"],
-                ["Electronics", "/china-sourcing-navigator/categories/electronics"],
+                ["Guangzhou", "/cities/guangzhou"],
+                ["Shenzhen", "/cities/shenzhen"],
+                ["Dongguan", "/cities/dongguan"],
+                ["Foshan", "/cities/foshan"],
+                ["Yiwu", "/cities/yiwu"],
+                ["Ningbo", "/cities/ningbo"],
+                ["Electronics", "/categories/electronics"],
               ].map(([name, href]) => (
                 <li key={name}>
                   <Link href={href} className="text-white/70 text-[13px] hover:text-white transition-colors">{name}</Link>
@@ -95,7 +96,7 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <img
-                src="/images/wf-logo-reversed.png"
+                src={`${basePath}/images/wf-logo-reversed.webp`}
                 alt="WorldFirst"
                 className="h-5 w-auto opacity-70"
               />

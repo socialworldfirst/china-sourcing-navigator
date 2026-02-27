@@ -16,8 +16,8 @@ export default function CityCard({
   imageUrl,
 }: CityCardProps) {
   return (
-    <Link href={`/china-sourcing-navigator/cities/${slug}`}>
-      <div className="city-card group relative overflow-hidden flex-shrink-0 cursor-pointer" style={{ width: 'calc((100% - 4 * 12px) / 5)', minWidth: '200px', aspectRatio: '3/4' }}>
+    <Link href={`/cities/${slug}`}>
+      <div className="city-card group relative overflow-hidden cursor-pointer rounded-2xl w-full" style={{ aspectRatio: '3/4' }}>
         {/* Background image */}
         <div
           className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
@@ -47,7 +47,7 @@ export default function CityCard({
 
           {/* CTA — slides in from below on hover */}
           <div className="absolute bottom-4 left-4 right-4 flex items-center gap-1.5 text-white text-sm font-medium opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-            {name} sourcing guide
+            Sourcing guide
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>

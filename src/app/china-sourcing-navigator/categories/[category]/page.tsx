@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export function generateStaticParams() {
   return [
-    { category: "electronics" },
+    // electronics has its own dedicated page at categories/electronics/page.tsx
     { category: "home-kitchen" },
     { category: "apparel" },
     { category: "beauty" },
@@ -270,7 +270,7 @@ export default async function CategoryPage({
             {category.topCities.map((city) => (
               <Link
                 key={city.slug}
-                href={`/china-sourcing-navigator/cities/${city.slug}`}
+                href={`/cities/${city.slug}`}
                 className="flex items-center gap-2 px-4 py-2.5 bg-wf-dark/60 border border-wf-border rounded-xl hover:border-wf-accent transition-colors group"
               >
                 <span className="text-xs text-slate-500">📍</span>
@@ -300,7 +300,7 @@ export default async function CategoryPage({
               >
                 <div className="flex-1">
                   <Link
-                    href={`/china-sourcing-navigator/cities/${source.slug}`}
+                    href={`/cities/${source.slug}`}
                   >
                     <h3 className="text-white font-semibold text-lg mb-2 hover:text-wf-accent transition-colors">
                       📍 {source.city}
@@ -309,7 +309,7 @@ export default async function CategoryPage({
                   <p className="text-slate-400 text-sm">{source.detail}</p>
                 </div>
                 <Link
-                  href={`/china-sourcing-navigator/cities/${source.slug}`}
+                  href={`/cities/${source.slug}`}
                   className="self-start px-4 py-2 bg-wf-dark border border-wf-border rounded-lg text-wf-accent text-sm font-medium hover:border-wf-accent transition-colors whitespace-nowrap"
                 >
                   City guide →
@@ -498,7 +498,7 @@ export default async function CategoryPage({
               return (
                 <Link
                   key={slug}
-                  href={`/china-sourcing-navigator/categories/${slug}`}
+                  href={`/categories/${slug}`}
                   className="px-5 py-3 bg-wf-dark/60 border border-wf-border rounded-xl text-slate-300 hover:border-wf-accent hover:text-white transition-colors text-sm font-medium"
                 >
                   {name} →

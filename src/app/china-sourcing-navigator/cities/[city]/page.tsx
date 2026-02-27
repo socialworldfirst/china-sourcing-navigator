@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export function generateStaticParams() {
   return [
-    { city: "guangzhou" },
+    // guangzhou has its own dedicated page at cities/guangzhou/page.tsx
     { city: "shenzhen" },
     { city: "dongguan" },
     { city: "foshan" },
@@ -293,7 +293,7 @@ export default async function CityPage({
             {city.whatItMakes.map((item) => (
               <Link
                 key={item.slug}
-                href={`/china-sourcing-navigator/categories/${item.slug}`}
+                href={`/categories/${item.slug}`}
               >
                 <div className="card-hover group p-6 bg-wf-dark/60 border border-wf-border rounded-xl h-full">
                   <h3 className="text-white font-semibold text-lg mb-2 group-hover:text-wf-accent transition-colors">
@@ -475,7 +475,7 @@ export default async function CityPage({
                   return (
                     <Link
                       key={slug}
-                      href={`/china-sourcing-navigator/cities/${slug}`}
+                      href={`/cities/${slug}`}
                       className="px-5 py-3 bg-wf-dark/60 border border-wf-border rounded-xl text-slate-300 hover:border-wf-accent hover:text-white transition-colors text-sm font-medium"
                     >
                       {name} →
@@ -495,7 +495,7 @@ export default async function CityPage({
               {city.topCategories.map((cat) => (
                 <Link
                   key={cat}
-                  href={`/china-sourcing-navigator/categories/${cat
+                  href={`/categories/${cat
                     .toLowerCase()
                     .replace(/ & /g, "-")
                     .replace(/ /g, "-")}`}

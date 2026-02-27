@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import basePath from "@/lib/basePath";
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -13,9 +14,9 @@ export default function Header() {
           {/* Logo — real WorldFirst logo */}
           <Link href="/" className="flex items-center">
             <img
-              src="/images/wf-logo-primary.png"
+              src={`${basePath}/images/wf-logo-nav.webp`}
               alt="WorldFirst"
-              className="h-7 w-auto"
+              className="h-6 w-auto"
             />
           </Link>
 

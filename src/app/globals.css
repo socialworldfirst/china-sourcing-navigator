@@ -154,3 +154,53 @@ body {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+/* ── Guangzhou City Guide ────────────────────────── */
+
+/* Sourcing layer tabs */
+.tab-active {
+  background-color: var(--color-wf-red);
+  color: white;
+  border-color: var(--color-wf-red);
+}
+
+/* FAQ accordion animation */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease-out, padding 0.35s ease-out;
+}
+
+.faq-answer.open {
+  max-height: 2000px;
+  padding-top: 0.5rem;
+  padding-bottom: 1rem;
+}
+
+.faq-chevron {
+  transition: transform 0.25s ease;
+}
+
+.faq-chevron.open {
+  transform: rotate(180deg);
+}
+
+/* Market card category gradients */
+.market-grad-apparel { background: linear-gradient(135deg, #FFF1F2 0%, #FFE4E6 100%); }
+.market-grad-textiles { background: linear-gradient(135deg, #FDF4FF 0%, #FAE8FF 100%); }
+.market-grad-leather { background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%); }
+.market-grad-beauty { background: linear-gradient(135deg, #FCE7F3 0%, #FBCFE8 100%); }
+.market-grad-toys { background: linear-gradient(135deg, #DBEAFE 0%, #BFDBFE 100%); }
+.market-grad-jewelry { background: linear-gradient(135deg, #F5F3FF 0%, #EDE9FE 100%); }
+.market-grad-electronics { background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%); }
+.market-grad-default { background: linear-gradient(135deg, #F5F6F7 0%, #ECEDEE 100%); }
+
+/* Gated supplier overlay */
+.supplier-gated-overlay {
+  background: linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.95) 50%, white 100%);
+}
+
+/* 1688 orange accent */
+.text-1688-orange { color: #FF6A00; }
+.bg-1688-orange { background-color: #FF6A00; }
+.border-1688-orange { border-color: #FF6A00; }
