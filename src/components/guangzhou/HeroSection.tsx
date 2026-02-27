@@ -48,9 +48,9 @@ export default function HeroSection() {
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 pt-28 w-full">
-          <div className="max-w-2xl">
-            <h1 className="text-4xl md:text-5xl lg:text-[56px] font-semibold leading-[1.1] text-white mb-4 tracking-[-0.02em]">
-              Sourcing from<br />Guangzhou
+          <div className="max-w-3xl">
+            <h1 className="text-4xl md:text-5xl lg:text-[56px] font-semibold leading-[1.1] text-white mb-4 tracking-[-0.02em] lg:whitespace-nowrap">
+              Sourcing from Guangzhou
             </h1>
             <p className="text-sm md:text-lg text-white/70 leading-relaxed">
               China&apos;s oldest trade capital. The gateway to the Pearl River Delta

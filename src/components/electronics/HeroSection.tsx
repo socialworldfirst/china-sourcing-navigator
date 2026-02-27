@@ -10,10 +10,10 @@ const electronicsCities = [
   { name: "Dongguan",  slug: "dongguan",  stars: 5, imageUrl: `${basePath}/images/dongguan.webp` },
   { name: "Guangzhou",  slug: "guangzhou",  stars: 4, imageUrl: `${basePath}/images/guangzhou.webp` },
   { name: "Shanghai",  slug: "shanghai",  stars: 3, imageUrl: `${basePath}/images/shanghai.webp` },
-  { name: "Hangzhou",  slug: "hangzhou",  stars: 3, imageUrl: "" },
+  { name: "Hangzhou",  slug: "hangzhou",  stars: 3, imageUrl: `${basePath}/images/hangzhou.jpg` },
   { name: "Ningbo",    slug: "ningbo",    stars: 3, imageUrl: `${basePath}/images/ningbo.webp` },
-  { name: "Suzhou",    slug: "suzhou",    stars: 3, imageUrl: "" },
-  { name: "Xiamen",    slug: "xiamen",    stars: 2, imageUrl: "" },
+  { name: "Suzhou",    slug: "suzhou",    stars: 3, imageUrl: `${basePath}/images/suzhou.jpg` },
+  { name: "Xiamen",    slug: "xiamen",    stars: 2, imageUrl: `${basePath}/images/xiamen.jpg` },
   { name: "Foshan",    slug: "foshan",    stars: 2, imageUrl: `${basePath}/images/foshan.webp` },
   { name: "Yiwu",      slug: "yiwu",      stars: 1, imageUrl: `${basePath}/images/yiwu.webp` },
 ];
@@ -170,9 +170,9 @@ export default function HeroSection() {
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 pt-28 w-full">
-          <div className="max-w-2xl">
-            <h1 className="text-4xl md:text-5xl lg:text-[56px] font-semibold leading-[1.1] text-white mb-4 tracking-[-0.02em]">
-              Source Electronics<br />from China
+          <div className="max-w-3xl">
+            <h1 className="text-4xl md:text-5xl lg:text-[56px] font-semibold leading-[1.1] text-white mb-4 tracking-[-0.02em] lg:whitespace-nowrap">
+              Source Electronics from China
             </h1>
             <p className="text-lg text-white/70 leading-relaxed">
               From Shenzhen&apos;s Huaqiangbei — the world&apos;s largest electronics
