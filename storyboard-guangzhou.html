@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Storyboard — China Sourcing Map: Guangzhou</title>
+<style>
+  :root {
+    --blue: #2563eb;
+    --orange: #ea580c;
+    --green: #16a34a;
+    --purple: #7c3aed;
+    --gray: #6b7280;
+    --bg: #f9fafb;
+    --card: #ffffff;
+    --text: #111827;
+    --muted: #6b7280;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+  /* STICKY NAV */
+  .nav { position: sticky; top: 0; z-index: 100; background: #111827; color: white; padding: 10px 24px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,.3); }
+  .nav a { color: #93c5fd; text-decoration: none; font-size: 13px; padding: 4px 10px; border-radius: 4px; transition: background .2s; white-space: nowrap; }
+  .nav a:hover { background: rgba(255,255,255,.1); }
+  .nav .title { font-weight: 700; font-size: 14px; color: white; margin-right: 12px; }
+
+  /* HEADER */
+  .header { background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%); color: white; padding: 60px 40px 40px; }
+  .header h1 { font-size: 36px; font-weight: 800; margin-bottom: 4px; }
+  .header .subtitle { font-size: 18px; color: #93c5fd; margin-bottom: 20px; }
+  .header .meta { display: flex; gap: 32px; flex-wrap: wrap; font-size: 14px; color: #cbd5e1; }
+  .header .meta span { display: flex; align-items: center; gap: 6px; }
+
+  /* ASSET SUMMARY */
+  .summary { background: white; border: 1px solid #e5e7eb; border-radius: 12px; margin: 24px 40px; padding: 24px 32px; display: flex; gap: 24px; flex-wrap: wrap; }
+  .summary-item { text-align: center; flex: 1; min-width: 120px; }
+  .summary-item .num { font-size: 32px; font-weight: 800; }
+  .summary-item .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+  .summary-item.stock .num { color: var(--blue); }
+  .summary-item.graphic .num { color: var(--orange); }
+  .summary-item.overlay .num { color: var(--purple); }
+  .summary-item.screen .num { color: var(--green); }
+  .summary-item.card .num { color: #dc2626; }
+
+  /* ENERGY MAP */
+  .energy { background: white; border: 1px solid #e5e7eb; border-radius: 12px; margin: 0 40px 24px; padding: 24px 32px; }
+  .energy h2 { font-size: 16px; font-weight: 700; margin-bottom: 16px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+  .energy-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; font-size: 13px; }
+  .energy-row .label { width: 100px; text-align: right; font-weight: 600; color: var(--text); }
+  .energy-bar { height: 20px; border-radius: 4px; transition: width .3s; }
+  .energy-row .desc { color: var(--muted); font-size: 12px; }
+
+  /* CHAPTER SECTIONS */
+  .chapter { margin: 32px 40px; }
+  .chapter-header { background: #111827; color: white; padding: 16px 24px; border-radius: 12px 12px 0 0; display: flex; justify-content: space-between; align-items: center; }
+  .chapter-header h2 { font-size: 20px; font-weight: 700; }
+  .chapter-header .time { font-size: 14px; color: #93c5fd; }
+  .chapter-body { background: white; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 12px 12px; padding: 24px; }
+
+  /* SHOT BLOCKS */
+  .shot { display: flex; gap: 20px; margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid #f3f4f6; align-items: flex-start; }
+  .shot:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .shot-img { width: 400px; min-width: 400px; height: 225px; border-radius: 8px; object-fit: cover; border: 3px solid var(--blue); background: #e5e7eb; }
+  .shot-img.graphic { border-color: var(--orange); }
+  .shot-img.screen { border-color: var(--green); }
+  .shot-img.overlay { border-color: var(--purple); }
+  .shot-img.talking { border-color: var(--gray); }
+  .shot-info { flex: 1; }
+  .shot-info h3 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+  .shot-info .type-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: white; margin-bottom: 8px; }
+  .shot-info .type-badge.stock { background: var(--blue); }
+  .shot-info .type-badge.graphic { background: var(--orange); }
+  .shot-info .type-badge.screen { background: var(--green); }
+  .shot-info .type-badge.overlay { background: var(--purple); }
+  .shot-info .type-badge.talking { background: var(--gray); }
+  .shot-info .desc { font-size: 14px; color: #374151; margin-bottom: 8px; }
+  .shot-info .meta-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+  .shot-info .tag { font-size: 11px; padding: 2px 8px; background: #f3f4f6; border-radius: 4px; color: var(--muted); }
+
+  /* TEXT OVERLAY MOCKUPS */
+  .overlay-mockup { background: rgba(0,0,0,0.75); color: white; padding: 16px 24px; border-radius: 8px; font-size: 18px; font-weight: 600; margin: 16px 0; max-width: 500px; border: 3px solid var(--purple); }
+  .overlay-mockup .position { font-size: 11px; color: #a78bfa; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; font-weight: 400; }
+  .overlay-mockup .duration { font-size: 11px; color: #a78bfa; margin-top: 8px; font-weight: 400; }
+
+  /* THOMAS MOMENT */
+  .thomas { background: #f9fafb; border: 2px dashed var(--gray); border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+  .thomas .label { font-size: 11px; font-weight: 700; color: var(--gray); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .thomas .line { font-size: 14px; font-style: italic; color: #374151; }
+  .thomas .direction { font-size: 12px; color: var(--muted); margin-top: 8px; }
+
+  /* YT CARD TRIGGER */
+  .yt-card { background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 12px 16px; margin: 12px 0; display: flex; align-items: center; gap: 12px; }
+  .yt-card .icon { font-size: 20px; }
+  .yt-card .info { font-size: 13px; color: #991b1b; }
+
+  /* YOUTUBE FURNITURE */
+  .furniture { margin: 32px 40px; background: white; border: 1px solid #e5e7eb; border-radius: 12px; padding: 24px 32px; }
+  .furniture h2 { font-size: 16px; font-weight: 700; margin-bottom: 16px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+  .furniture-item { padding: 12px 0; border-bottom: 1px solid #f3f4f6; display: flex; gap: 16px; align-items: center; }
+  .furniture-item:last-child { border-bottom: none; }
+  .furniture-item .icon { font-size: 24px; }
+  .furniture-item .detail { font-size: 14px; }
+  .furniture-item .detail strong { color: var(--text); }
+  .furniture-item .detail span { color: var(--muted); }
+
+  /* THUMBNAIL SECTION */
+  .thumbnails { margin: 32px 40px; background: white; border: 1px solid #e5e7eb; border-radius: 12px; padding: 24px 32px; }
+  .thumbnails h2 { font-size: 16px; font-weight: 700; margin-bottom: 16px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+  .thumb-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .thumb-card { border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; }
+  .thumb-card .thumb-img { width: 100%; height: 180px; object-fit: cover; background: #e5e7eb; }
+  .thumb-card .thumb-info { padding: 12px; }
+  .thumb-card .thumb-info h3 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .thumb-card .thumb-info p { font-size: 12px; color: var(--muted); margin-bottom: 2px; }
+
+  /* ASSET CHECKLIST */
+  .checklist { margin: 32px 40px; background: white; border: 1px solid #e5e7eb; border-radius: 12px; padding: 24px 32px; }
+  .checklist h2 { font-size: 16px; font-weight: 700; margin-bottom: 16px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+  .checklist-group { margin-bottom: 16px; }
+  .checklist-group h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; padding-left: 4px; }
+  .checklist-group h3.stock { color: var(--blue); }
+  .checklist-group h3.graphic { color: var(--orange); }
+  .checklist-group h3.screen { color: var(--green); }
+  .checklist-group h3.overlay { color: var(--purple); }
+  .check-item { display: flex; align-items: center; gap: 8px; padding: 4px 0; font-size: 14px; }
+  .check-item input[type="checkbox"] { width: 16px; height: 16px; }
+
+  /* PRINT */
+  @media print {
+    .nav { display: none; }
+    .header { padding: 20px; }
+    .chapter, .summary, .energy, .furniture, .thumbnails, .checklist { margin: 16px 20px; page-break-inside: avoid; }
+    .shot { page-break-inside: avoid; }
+    .shot-img { width: 300px; min-width: 300px; height: 169px; }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .header, .summary, .energy, .chapter, .furniture, .thumbnails, .checklist { margin-left: 16px; margin-right: 16px; }
+    .shot { flex-direction: column; }
+    .shot-img { width: 100%; min-width: unset; height: 200px; }
+    .thumb-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Image fallback */
+  .shot-img-wrap { position: relative; width: 400px; min-width: 400px; height: 225px; border-radius: 8px; overflow: hidden; }
+  .shot-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+  .shot-img-wrap .fallback { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: #e5e7eb; color: var(--muted); font-size: 13px; text-align: center; padding: 16px; }
+  .shot-img-wrap img + .fallback { display: none; }
+  .shot-img-wrap img[src=""] + .fallback, .shot-img-wrap img:not([src]) + .fallback { display: flex; }
+
+  @media (max-width: 900px) {
+    .shot-img-wrap { width: 100%; min-width: unset; }
+  }
+</style>
+</head>
+<body>
+
+<!-- STICKY NAV -->
+<nav class="nav">
+  <span class="title">STORYBOARD</span>
+  <a href="#hook">Hook</a>
+  <a href="#ch1">CH1: Trade DNA</a>
+  <a href="#ch2">CH2: Market Empire</a>
+  <a href="#ch3">CH3: What It Makes</a>
+  <a href="#ch4">CH4: Sourcing Lanes</a>
+  <a href="#ch5">CH5: Your Plan</a>
+  <a href="#ch6">CH6: WorldFirst</a>
+  <a href="#outro">Outro</a>
+  <a href="#checklist">Checklist</a>
+</nav>
+
+<!-- HEADER -->
+<div class="header">
+  <h1>China Sourcing Map: Guangzhou</h1>
+  <div class="subtitle">Visual Storyboard &mdash; Production Brief</div>
+  <div class="meta">
+    <span>Duration: ~14 min</span>
+    <span>Chapters: 6 + Hook + Outro</span>
+    <span>Total shots: 28</span>
+    <span>Generated: 2026-03-11</span>
+    <span>Series: China Sourcing Map &mdash; Episode 1</span>
+  </div>
+</div>
+
+<!-- ASSET SUMMARY -->
+<div class="summary">
+  <div class="summary-item stock"><div class="num">12</div><div class="label">Stock footage</div></div>
+  <div class="summary-item graphic"><div class="num">3</div><div class="label">Graphics to create</div></div>
+  <div class="summary-item overlay"><div class="num">15</div><div class="label">Text overlays</div></div>
+  <div class="summary-item screen"><div class="num">1</div><div class="label">Screen recording</div></div>
+  <div class="summary-item card"><div class="num">3</div><div class="label">YouTube cards</div></div>
+</div>
+
+<!-- ENERGY MAP -->
+<div class="energy">
+  <h2>Pacing &amp; Energy Arc</h2>
+  <div class="energy-row">
+    <span class="label">HOOK</span>
+    <div class="energy-bar" style="width:280px; background: linear-gradient(90deg, #ef4444, #f97316);"></div>
+    <span class="desc">High energy, attention-grabbing. Broad audience hook.</span>
+  </div>
+  <div class="energy-row">
+    <span class="label">CH 1</span>
+    <div class="energy-bar" style="width:200px; background: linear-gradient(90deg, #3b82f6, #6366f1);"></div>
+    <span class="desc">Cinematic, wonder. Historical sweep.</span>
+  </div>
+  <div class="energy-row">
+    <span class="label">CH 2</span>
+    <div class="energy-bar" style="width:300px; background: linear-gradient(90deg, #f97316, #eab308);"></div>
+    <span class="desc">Upbeat, bustling. Market energy &mdash; fast cuts.</span>
+  </div>
+  <div class="energy-row">
+    <span class="label">CH 3</span>
+    <div class="energy-bar" style="width:220px; background: linear-gradient(90deg, #22c55e, #14b8a6);"></div>
+    <span class="desc">Informative, steady. Data-driven montage.</span>
+  </div>
+  <div class="energy-row">
+    <span class="label">CH 4</span>
+    <div class="energy-bar" style="width:260px; background: linear-gradient(90deg, #eab308, #f97316);"></div>
+    <span class="desc">Practical, building momentum. Sourcing strategy.</span>
+  </div>
+  <div class="energy-row">
+    <span class="label">CH 5</span>
+    <div class="energy-bar" style="width:320px; background: linear-gradient(90deg, #ef4444, #ec4899);"></div>
+    <span class="desc">Peak energy. Action plan &mdash; viewer takes notes.</span>
+  </div>
+  <div class="energy-row">
+    <span class="label">CH 6 / WF</span>
+    <div class="energy-bar" style="width:160px; background: linear-gradient(90deg, #6366f1, #8b5cf6);"></div>
+    <span class="desc">Warm, trust-building. Conversational tone.</span>
+  </div>
+  <div class="energy-row">
+    <span class="label">OUTRO</span>
+    <div class="energy-bar" style="width:200px; background: linear-gradient(90deg, #3b82f6, #22c55e);"></div>
+    <span class="desc">Friendly, closing. Subscribe energy.</span>
+  </div>
+</div>
+
+<!-- ========== HOOK ========== -->
+<div class="chapter" id="hook">
+  <div class="chapter-header">
+    <h2>HOOK</h2>
+    <span class="time">0:00 &ndash; 0:30</span>
+  </div>
+  <div class="chapter-body">
+
+    <!-- Shot 1: Talking head -->
+    <div class="shot">
+      <div class="shot-img-wrap" style="border: 3px solid var(--gray); border-radius: 8px;">
+        <div class="fallback" style="background: #1e293b; color: #94a3b8;">
+          <div>TALKING HEAD<br><br>Thomas delivers hook directly to camera.<br>Confident, warm, slightly conspiratorial.</div>
+        </div>
+      </div>
+      <div class="shot-info">
+        <span class="type-badge talking">Hold on presenter</span>
+        <h3>Thomas delivers hook to camera</h3>
+        <p class="desc">"Almost everything you buy &mdash; your clothes, your phone case, the bag you carry to work &mdash; there's a good chance it passed through this city. Guangzhou."</p>
+        <p class="desc">Then: "I'm Thomas. I'm German, I've lived in China for thirteen years, and I'm going to show you why this city is the starting point for global trade."</p>
+        <div class="meta-tags">
+          <span class="tag">Duration: ~15 sec</span>
+          <span class="tag">Energy: confident, warm</span>
+          <span class="tag">Hold on face for "Guangzhou" reveal</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shot 2: Aerial Pearl River -->
+    <div class="shot">
+      <div class="shot-img-wrap" style="border: 3px solid var(--blue); border-radius: 8px;">
+        <img src="https://images.unsplash.com/photo-1583264924319-c35c73e01834?w=800&q=80" alt="Guangzhou skyline aerial" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="fallback" style="display:none;">Aerial Guangzhou skyline &mdash; Pearl River, Canton Tower, Zhujiang New Town</div>
+      </div>
+      <div class="shot-info">
+        <span class="type-badge stock">Stock footage</span>
+        <h3>Aerial Pearl River &amp; Guangzhou skyline</h3>
+        <p class="desc">Sweeping aerial shot over Pearl River. Canton Tower visible. Golden hour or blue hour. Establishes scale and modernity of the city.</p>
+        <div class="meta-tags">
+          <span class="tag">Duration: 5-7 sec</span>
+          <span class="tag">16:9 full screen</span>
+          <span class="tag">Drone/aerial</span>
+        </div>
+        <p style="font-size:12px; color:#6b7280; margin-top:8px;">Ref: <a href="https://www.istockphoto.com/photos/guangzhou-aerial" target="_blank">iStock Guangzhou Aerial</a> &middot; <a href="https://www.gettyimages.com/photos/guangzhou-skyline" target="_blank">Getty Guangzhou Skyline</a></p>
+      </div>
+    </div>
+
+    <!-- Shot 3: Market interiors -->
+    <div class="shot">
+      <div class="shot-img-wrap" style="border: 3px solid var(--blue); border-radius: 8px;">
+        <img src="https://www.synotrip.com/sites/default/files/styles/medium/public/ariel_wu/shi-1.jpg.webp?itok=dKvu_Sf_" alt="Shisanhang wholesale market" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="fallback" style="display:none;">Guangzhou wholesale market interior &mdash; busy corridors, stacked goods</div>
+      </div>
+      <div class="shot-info">
+        <span class="type-badge stock">Stock footage</span>
+        <h3>Wholesale market interiors &mdash; busy, bustling</h3>
+        <p class="desc">Quick cuts of wholesale market corridors. Vendors with stacked boxes, buyers inspecting goods. Narrow corridors packed with product. The visual density communicates "trade hub" instantly.</p>
+        <div class="meta-tags">
+          <span class="tag">Duration: 5-8 sec</span>
+          <span class="tag">16:9 full screen</span>
+          <span class="tag">Multiple quick cuts</span>
+        </div>
+        <p style="font-size:12px; color:#6b7280; margin-top:8px;">Ref: <a href="https://www.synotrip.com/guangzhou-guangdong-province-china/ariel-wu/guangzhou-shisanhang-clothing-wholesale-market-area" target="_blank">Synotrip Shisanhang gallery</a></p>
+      </div>
+    </div>
+
+    <!-- Text overlay -->
+    <div class="overlay-mockup">
+      <div class="position">Center screen &mdash; title card</div>
+      China Sourcing Map: Guangzhou
+      <div class="duration">Hold: 3 sec &mdash; appears over aerial/market B-roll</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========== CHAPTER 1 ========== -->
+<div class="chapter" id="ch1">
+  <div class="chapter-header">
+    <h2>CHAPTER 1: The Trade DNA</h2>
+    <span class="time">0:30 &ndash; 2:30</span>
+  </div>
+  <div class="chapter-body">
+
+    <!-- Shot: Historical Thirteen Factories -->
+    <div class="shot">
+      <div class="shot-img-wrap" style="border: 3px solid var(--blue); border-radius: 8px;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/William_Daniell_-_The_European_Factories%2C_Canton_-_Google_Art_Project.jpg/1280px-William_Daniell_-_The_European_Factories%2C_Canton_-_Google_Art_Project.jpg" alt="Thirteen Factories Canton historical painting" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="fallback" style="display:none;">Historical painting of the Thirteen Factories along Pearl River, Canton (Guangzhou)</div>
+      </div>
+      <div class="shot-info">
+        <span class="type-badge stock">Stock footage / archive</span>
+        <h3>Historical illustrations &mdash; Thirteen Factories</h3>
+        <p class="desc">Oil painting or historical illustration showing the Thirteen Factories (Canton System era). Warehouses along the Pearl River with flags of different nations. Ken Burns effect &mdash; slow zoom into the painting.</p>
+        <div class="meta-tags">
+          <span class="tag">Duration: 4-6 sec</span>
+          <span class="tag">Ken Burns slow zoom</span>
+          <span class="tag">Source: public domain paintings</span>
+        </div>
+        <p style="font-size:12px; color:#6b7280; margin-top:8px;">Ref: <a href="https://en.wikipedia.org/wiki/Thirteen_Factories" target="_blank">Wikipedia Thirteen Factories</a> &middot; <a href="https://artsandculture.google.com/story/what-are-the-thirteen-hongs-in-canton-guangzhou-museum/RAWhY5CdS7LZDQ" target="_blank">Google Arts &amp; Culture</a> &middot; <a href="https://picryl.com/topics/thirteen+factories" target="_blank">PICRYL public domain</a></p>
+      </div>
+    </div>
+
+    <!-- Shot: Canton Fair archival to modern -->
+    <div class="shot">
+      <div class="shot-img-wrap" style="border: 3px solid var(--blue); border-radius: 8px;">
+        <img src="https://www.examinechina.com/wp-content/uploads/canton-fair-2024-1.jpg" alt="Canton Fair exhibition hall" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="fallback" style="display:none;">Canton Fair &mdash; massive exhibition halls, international buyers, exhibitor booths</div>
+      </div>
+      <div class="shot-info">
+        <span class="type-badge stock">Stock footage</span>
+        <h3>Canton Fair &mdash; archival to modern transition</h3>
+        <p class="desc">Transition from black-and-white archival footage of early Canton Fair (1950s-60s) to modern full-color footage of the massive Pazhou complex. Shows continuity &mdash; same fair, 70 years later. 25,000 exhibitors.</p>
+        <div class="meta-tags">
+          <span class="tag">Duration: 5-8 sec</span>
+          <span class="tag">Cross-dissolve transition</span>
+          <span class="tag">B&amp;W to color</span>
+        </div>
+        <p style="font-size:12px; color:#6b7280; margin-top:8px;">Ref: <a href="https://www.gettyimages.in/photos/canton-fair" target="_blank">Getty Canton Fair collection (2,200+ photos)</a></p>
+      </div>
+    </div>
+
+    <!-- Text overlays -->
+    <div class="overlay-mockup">
+      <div class="position">Lower third</div>
+      1757&ndash;1842: ALL Western trade forced through Guangzhou
+      <div class="duration">Hold: 4 sec &mdash; appears during Thirteen Factories painting</div>
+    </div>
+
+    <!-- YT Card -->
+    <div class="yt-card">
+      <span class="icon">&#9654;</span>
+      <div class="info"><strong>YouTube Card #1</strong> &mdash; Link to Canton Fair video. Trigger when Thomas says "Canton Fair" &mdash; top right corner, 8 sec duration.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========== CHAPTER 2 ========== -->
+<div class="chapter" id="ch2">
+  <div class="chapter-header">
+    <h2>CHAPTER 2: The Market Empire</h2>
+    <span class="time">2:30 &ndash; 5:30</span>
+  </div>
+  <div class="chapter-body">
+
+    <!-- Shot: Shisanhang exterior + interior -->
+    <div class="shot">
+      <div class="shot-img-wrap" style="border: 3px solid var(--blue); border-radius: 8px;">
+        <img src="https://www.synotrip.com/sites/default/files/styles/medium/public/ariel_wu/shi-2.jpg.webp?itok=t8DCKHpI" alt="Shisanhang interior" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="fallback" style="display:none;">Shisanhang market &mdash; exterior and interior floors</div>
+      </div>
+      <div class="shot-info">
+        <span class="type-badge stock">Stock footage</span>
+        <h3>Shisanhang &mdash; building exterior, ground floor retail, upper floors wholesale</h3>
+        <p class="desc">Sequence: exterior of New China Building &rarr; ground floor (casual shoppers buying 1-2 pieces) &rarr; upper floors 14-20 (wholesale buyers with 100+ piece minimums, stacked cartons). Same building, completely different business.</p>
+        <div class="meta-tags">
+          <span class="tag">Duration: 8-10 sec</span>
+          <span class="tag">3-shot sequence</span>
+          <span class="tag">Contrast: retail vs wholesale</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Text overlay -->
+    <div class="overlay-mockup">
+      <div class="position">Lower third &mdash; split comparison</div>
+      Shisanhang &mdash; Ground floor: 1-5 pcs / Upper floors: 100-400+ pcs
+      <div class="duration">Hold: 4 sec</div>
+    </div>
+
+    <!-- Shot: Baima White Horse -->
+    <div class="shot">
+      <div class="shot-img-wrap" style="border: 3px solid var(--blue); border-radius: 8px;">
+        <img src="https://www.synotrip.com/sites/default/files/styles/large/public/ariel_wu/bai_ma_-3.jpg.webp" alt="Baima White Horse Market" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="fallback" style="display:none;">Baima (White Horse) Market &mdash; premium fashion, 10 floors</div>
+      </div>
+      <div class="shot-info">
+        <span class="type-badge stock">Stock footage</span>
+        <h3>Baima (White Horse) Market &mdash; premium fashion building</h3>
+        <p class="desc">Exterior shot of the iconic Baima building near Guangzhou Railway Station. Then interiors: 10 floors, 2,000 shops, mid-to-high-end women's apparel. Clean, organized, premium feel. Contrast with Shahe's chaos.</p>
+        <div class="meta-tags">
+          <span class="tag">Duration: 4-5 sec</span>
+          <span class="tag">Exterior + interior</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shot: Shahe early morning -->
+    <div class="shot">
+      <div class="shot-img-wrap" style="border: 3px solid var(--blue); border-radius: 8px;">
+        <img src="https://www.synotrip.com/sites/default/files/styles/medium/public/ariel_wu/shi-4.jpg.webp?itok=0oUmC5co" alt="Shahe market" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="fallback" style="display:none;">Shahe Market &mdash; 5AM opening, 20,000 stalls, budget fashion chaos</div>
+      </div>
+      <div class="shot-info">
+        <span class="type-badge stock">Stock footage</span>
+        <h3>Shahe &mdash; budget fashion, 5AM opening chaos</h3>
+        <p class="desc">Pre-dawn: buyers with flashlights, carts being loaded, narrow lanes between stalls. 23 connected markets, 20,000 stalls, 2,000 new styles daily. Opens at 5 AM, closes by 2 PM. Energy is frantic, wholesale-only feel.</p>
+        <div class="meta-tags">
+          <span class="tag">Duration: 5-6 sec</span>
+          <span class="tag">Low light / dawn energy</span>
+          <span class="tag">Fast cuts</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- THOMAS MOMENT -->
+    <div class="thomas">
+      <div class="label">&#128100; Thomas Moment &mdash; Bilingual Hook</div>
+      <div class="line">"Don't ask duo shao qian &mdash; how much. Ask zen me fa &mdash; how do you ship. That single question tells the vendor you're wholesale, not a tourist."</div>
+      <div class="direction">Energy: conspiratorial, sharing a secret. Direct to camera. Hold on Thomas &mdash; no B-roll.</div>
+    </div>
+
+    <div class="overlay-mockup">
+      <div class="position">Center screen</div>
+      &#24590;&#20040;&#21457; (how do you ship?) > &#22810;&#23569;&#38065; (how much?)
+      <div class="duration">Hold: 4 sec &mdash; appears as Thomas says the Chinese</div>
+    </div>
+
+    <!-- Shot: Zhongda fabric -->
+    <div class="shot">
+      <div class="shot-img-wrap" style="border: 3px solid var(--blue); border-radius: 8px;">
+        <img src="https://jingsourcing.com/wp-content/uploads/2024/11/Guangzhou-fabric-market-locations.webp" alt="Zhongda fabric market locations" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="fallback" style="display:none;">Zhongda Fabric Market &mdash; largest in South China, 18 buildings</div>
+      </div>
+      <div class="shot-info">
+        <span class="type-badge stock">Stock footage</span>
+        <h3>Zhongda Fabric Market &mdash; bolts of fabric, tailoring speed</h3>
+        <p class="desc">Rows of fabric bolts in every color. Buyers touching and comparing textiles. Then: a tailor cutting and sewing &mdash; raw fabric to finished garment in 48 hours. 18 buildings, 4,000 stores. Speed is the story here.</p>
+        <div class="meta-tags">
+          <span class="tag">Duration: 5-6 sec</span>
+          <span class="tag">Fabric close-ups + sewing machines</span>
+        </div>
+        <p style="font-size:12px; color:#6b7280; margin-top:8px;">Ref: <a href="https://jingsourcing.com/b-guangzhou-textile-market/" target="_blank">Jing Sourcing Zhongda Guide</a></p>
+      </div>
+    </div>
+
+    <!-- Shot: Canton Fair halls -->
+    <div class="shot">
+      <div class="shot-img-wrap" style="border: 3px solid var(--blue); border-radius: 8px;">
+        <img src="https://www.examinechina.com/wp-content/uploads/canton-fair-2024-1.jpg" alt="Canton Fair halls" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="fallback" style="display:none;">Canton Fair &mdash; exhibition halls, international buyers at booths</div>
+      </div>
+      <div class="shot-info">
+        <span class="type-badge stock">Stock footage</span>
+        <h3>Canton Fair &mdash; exhibition halls, buyer interactions</h3>
+        <p class="desc">Wide shots of Pazhou exhibition complex. Massive halls. International buyers examining products. Exhibitors presenting. Three phases, three weeks. The scale should feel overwhelming in the best way.</p>
+        <div class="meta-tags">
+          <span class="tag">Duration: 5-7 sec</span>
+          <span class="tag">Wide then close-up</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay-mockup">
+      <div class="position">Lower third</div>
+      Canton Fair 2026 &mdash; Spring: Apr 15 &ndash; May 5 / Autumn: Oct 15 &ndash; Nov 4
+      <div class="duration">Hold: 5 sec</div>
+    </div>
+
+    <div class="yt-card">
+      <span class="icon">&#9654;</span>
+      <div class="info"><strong>YouTube Card #2</strong> &mdash; Link to Canton Fair video. Trigger when Thomas says "I'll put it up here" &mdash; top right corner, 8 sec duration.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========== CHAPTER 3 ========== -->
+<div class="chapter" id="ch3">
+  <div class="chapter-header">
+    <h2>CHAPTER 3: What Guangzhou Actually Makes</h2>
+    <span class="time">5:30 &ndash; 7:30</span>
+  </div>
+  <div class="chapter-body">
+
+    <!-- Shot: Product montage -->
+    <div class="shot">
+      <div class="shot-img-wrap" style="border: 3px solid var(--blue); border-radius: 8px;">
+        <div class="fallback" style="background: #fef3c7; color: #92400e; display: flex;">
+          <div>QUICK MONTAGE<br><br>5 rapid cuts:<br>1. Leather workshop (bags/belts)<br>2. Cosmetics production line<br>3. Denim factory (jeans)<br>4. Toy showroom<br>5. Electronics market stall</div>
+        </div>
+      </div>
+      <div class="shot-info">
+        <span class="type-badge stock">Stock footage</span>
+        <h3>Product diversity montage &mdash; 5 rapid cuts</h3>
+        <p class="desc">Fast montage showing Guangzhou is NOT just clothing. Each cut 1.5-2 sec: leather workshop (Shiling), cosmetics production line (Baiyun), denim factory (Xintang), toy showroom, electronics market stall. Music builds with each cut.</p>
+        <div class="meta-tags">
+          <span class="tag">Duration: 8-10 sec total</span>
+          <span class="tag">5 rapid cuts</span>
+          <span class="tag">Music sync</span>
+        </div>
+        <p style="font-size:12px; color:#6b7280; margin-top:8px;">Ref: <a href="https://www.gettyimages.com/photos/denim-jean-production-in-china" target="_blank">Getty denim production</a> &middot; Search: "Shiling leather market Huadu", "Baiyun cosmetics factory", "Xintang jeans factory"</p>
+      </div>
+    </div>
+
+    <div class="overlay-mockup">
+      <div class="position">Center screen &mdash; stat card</div>
+      Guangzhou: apparel, leather, cosmetics, denim, electronics, toys, tea, jewelry, watches
+      <div class="duration">Hold: 4 sec &mdash; appears after montage</div>
+    </div>
+
+    <!-- Shot: PRD Map Animation -->
+    <div class="shot">
+      <div class="shot-img-wrap" style="border: 3px solid var(--orange); border-radius: 8px;">
+        <img src="https://jingsourcing.com/wp-content/uploads/2024/03/3.PDR-map.jpg" alt="Pearl River Delta map" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="fallback" style="display:none;">PRD map showing factory cities radiating from Guangzhou</div>
+      </div>
+      <div class="shot-info">
+        <span class="type-badge graphic">Graphic to create</span>
+        <h3>PRD Factory Belt Map &mdash; animated</h3>
+        <p class="desc">Custom animated map showing Guangzhou as the central hub with PRD cities radiating outward. Each city lights up with its specialty: Shenzhen (electronics), Dongguan (plastics/moulds), Foshan (furniture/ceramics), Zhongshan/Guzhen (lighting 60% of China). Clean, modern style. Cities appear one by one as Thomas names them.</p>
+        <div class="meta-tags">
+          <span class="tag">Duration: 10-12 sec</span>
+          <span class="tag">Animated &mdash; cities appear sequentially</span>
+          <span class="tag">MUST CREATE &mdash; motion designer</span>
+        </div>
+        <p style="font-size:12px; color:#6b7280; margin-top:8px;">Style ref: <a href="https://jingsourcing.com/b-pearl-river-delta/" target="_blank">Jing Sourcing PRD maps</a> &middot; <a href="https://www.visualcapitalist.com/pearl-river-delta-megacity-2020/" target="_blank">Visual Capitalist PRD infographic</a></p>
+      </div>
+    </div>
+
+    <div class="overlay-mockup">
+      <div class="position">Lower third</div>
+      Pearl River Delta &mdash; 42 million people, RMB 11.9 trillion GDP
+      <div class="duration">Hold: 4 sec &mdash; appears with map animation</div>
+    </div>
+
+    <div class="overlay-mockup">
+      <div class="position">Lower third &mdash; CTA</div>
+      Free download &mdash; China Sourcing Map / link in description
+      <div class="duration">Hold: 4 sec &mdash; appears after PRD map section</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========== CHAPTER 4 ========== -->
+<div class="chapter" id="ch4">
+  <div class="chapter-header">
+    <h2>CHAPTER 4: The Sourcing Lanes</h2>
+    <span class="time">7:30 &ndash; 11:00</span>
+  </div>
+  <div class="chapter-body">
+
+    <!-- THOMAS MOMENT -->
+    <div class="thomas">
+      <div class="label">&#128100; Thomas Moment &mdash; Ground-Level Credibility</div>
+      <div class="line">"I've been talking to business owners here for years &mdash; Chinese factory owners, trading company managers, foreign buyers who've set up offices in Guangzhou. And the picture they paint is different from what you read online."</div>
+      <div class="direction">Energy: serious, honest. Direct to camera. Slow down the pace &mdash; this is a trust-building moment. Hold on Thomas for the full delivery.</div>
+    </div>
+
+    <!-- Shot: 4 lanes graphic -->
+    <div class="shot">
+      <div class="shot-img-wrap" style="border: 3px solid var(--orange); border-radius: 8px;">
+        <div class="fallback" style="background: #fff7ed; color: #9a3412; display: flex;">
+          <div>GRAPHIC: 4 SOURCING LANES<br><br>&#9312; Wholesale Markets<br>&#9313; Trade Shows<br>&#9314; 1688<br>&#9315; Agents &amp; Trading Cos<br><br>Clean diagram, icons for each lane</div>
+        </div>
+      </div>
+      <div class="shot-info">
+        <span class="type-badge graphic">Graphic to create</span>
+        <h3>4 Sourcing Lanes Diagram</h3>
+        <p class="desc">Clean infographic showing the 4 sourcing lanes as parallel paths: Markets, Trade shows, 1688, Agents &amp; trading companies. Icon for each. Could be a vertical or horizontal flow. Simple, scannable. Appears as Thomas introduces the framework.</p>
+        <div class="meta-tags">
+          <span class="tag">Duration: 6-8 sec</span>
+          <span class="tag">Animated &mdash; lanes appear one by one</span>
+          <span class="tag">MUST CREATE &mdash; motion designer</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shot: 1688 screen recording -->
+    <div class="shot">
+      <div class="shot-img-wrap" style="border: 3px solid var(--green); border-radius: 8px;">
+        <div class="fallback" style="background: #f0fdf4; color: #166534; display: flex;">
+          <div>SCREEN RECORDING<br><br>1688.com browsing &mdash;<br>show product listings,<br>factory prices, supplier locations.<br>Google Translate overlay.</div>
+        </div>
+      </div>
+      <div class="shot-info">
+        <span class="type-badge screen">Screen recording</span>
+        <h3>1688 platform &mdash; browsing, factory pricing, supplier locations</h3>
+        <p class="desc">Screen recording of 1688.com with Google Translate active. Show: product search, price comparisons, supplier location badges (showing Guangzhou/Guangdong). The point: this is where factory pricing lives. Language solved by AI tools. Highlight supplier location data.</p>
+        <div class="meta-tags">
+          <span class="tag">Duration: 8-10 sec</span>
+          <span class="tag">Screen recording</span>
+          <span class="tag">MUST CAPTURE</span>
+        </div>
+        <p style="font-size:12px; color:#6b7280; margin-top:8px;">Ref: <a href="https://www.1688.com" target="_blank">1688.com</a> &mdash; record with browser + Google Translate extension</p>
+      </div>
+    </div>
+
+    <div class="yt-card">
+      <span class="icon">&#9654;</span>
+      <div class="info"><strong>YouTube Card #3</strong> &mdash; Link to 1688 video. Trigger when Thomas says "We made a full video on how to use 1688" &mdash; top right corner, 8 sec duration.</div>
+    </div>
+
+    <div class="overlay-mockup">
+      <div class="position">Center screen</div>
+      1688 = your due diligence tool / Know the floor price / Watch where suppliers are located
+      <div class="duration">Hold: 5 sec &mdash; appears after 1688 screen recording</div>
+    </div>
+
+    <div class="overlay-mockup">
+      <div class="position">Center screen &mdash; summary card</div>
+      4 sourcing lanes: Markets / Trade shows / 1688 / Agents &amp; trading cos
+      <div class="duration">Hold: 4 sec &mdash; chapter recap</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========== CHAPTER 5 ========== -->
+<div class="chapter" id="ch5">
+  <div class="chapter-header">
+    <h2>CHAPTER 5: Your Guangzhou Plan</h2>
+    <span class="time">11:00 &ndash; 12:30</span>
+  </div>
+  <div class="chapter-body">
+
+    <!-- Shot: Guangzhou hub map -->
+    <div class="shot">
+      <div class="shot-img-wrap" style="border: 3px solid var(--orange); border-radius: 8px;">
+        <img src="https://jingsourcing.com/wp-content/uploads/2024/03/1.location.jpg" alt="PRD location map" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="fallback" style="display:none;">Map showing Guangzhou as central hub with routes to PRD cities</div>
+      </div>
+      <div class="shot-info">
+        <span class="type-badge graphic">Graphic to create</span>
+        <h3>Guangzhou Hub Map &mdash; routes to PRD factory cities</h3>
+        <p class="desc">Re-use PRD map from CH3 but now with transport routes highlighted. High-speed rail lines, metro connections, drive times. Guangzhou Railway Station as the starting point. Show how everything is 30-90 minutes away.</p>
+        <div class="meta-tags">
+          <span class="tag">Duration: 6-8 sec</span>
+          <span class="tag">Can reuse CH3 map with transport layer</span>
+          <span class="tag">Motion designer</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay-mockup">
+      <div class="position">Lower third</div>
+      Best months &mdash; March, Oct&ndash;Dec / Avoid &mdash; CNY, Golden Week, Canton Fair hotel surge
+      <div class="duration">Hold: 5 sec</div>
+    </div>
+
+    <!-- Shot: Metro map + Yuexiu -->
+    <div class="shot">
+      <div class="shot-img-wrap" style="border: 3px solid var(--blue); border-radius: 8px;">
+        <div class="fallback" style="background: #eff6ff; color: #1e40af; display: flex;">
+          <div>METRO MAP<br><br>Guangzhou metro with<br>key sourcing stations highlighted:<br>Railway Station, Shahe, Zhongda,<br>Canton Fair (Pazhou)<br>+ hotel zones marked</div>
+        </div>
+      </div>
+      <div class="shot-info">
+        <span class="type-badge stock">Stock footage + graphic overlay</span>
+        <h3>Metro map with sourcing stations + Yuexiu hotel area + street food</h3>
+        <p class="desc">Guangzhou metro map with key sourcing stops highlighted in color. Then cut to Yuexiu District hotel area &mdash; practical, affordable, central. Then a quick street food shot to humanize the trip. The "you can actually do this" moment.</p>
+        <div class="meta-tags">
+          <span class="tag">Duration: 6-8 sec</span>
+          <span class="tag">Map overlay + location B-roll</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay-mockup">
+      <div class="position">Lower third</div>
+      Stay &mdash; Yuexiu District / Budget backup &mdash; Foshan (30 min by metro)
+      <div class="duration">Hold: 4 sec</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========== CHAPTER 6 ========== -->
+<div class="chapter" id="ch6">
+  <div class="chapter-header" style="background: #1e3a5f;">
+    <h2>CHAPTER 6: WorldFirst</h2>
+    <span class="time">12:30 &ndash; 13:30</span>
+  </div>
+  <div class="chapter-body">
+
+    <div class="thomas">
+      <div class="label">&#128100; Hold on Presenter &mdash; Trust Building</div>
+      <div class="line">"If you're about to wire thirty thousand dollars to a supplier in Guangzhou &mdash; a city you may have never visited, to a person you may have never met &mdash; what do you actually need?"</div>
+      <div class="direction">Energy: warm, direct, honest. This is the most important talking-head hold. Let Thomas deliver the entire WF section to camera. No B-roll cuts in this chapter &mdash; the trust comes from eye contact.</div>
+    </div>
+
+    <div class="overlay-mockup">
+      <div class="position">Lower third &mdash; key stats</div>
+      150,000+ Chinese suppliers / 1.5M+ business customers / Free instant payments in-network
+      <div class="duration">Hold: 5 sec &mdash; appears mid-way through WF section</div>
+    </div>
+
+    <p style="font-size:14px; color:#6b7280; margin-top:16px; padding: 12px; background: #f0f9ff; border-radius: 8px;"><strong>Editor note:</strong> This chapter is almost entirely talking head. Thomas delivers the WorldFirst story directly to camera. The trust comes from the personal delivery. Only break for the stat overlay. No B-roll cuts here.</p>
+
+  </div>
+</div>
+
+<!-- ========== OUTRO ========== -->
+<div class="chapter" id="outro">
+  <div class="chapter-header" style="background: #065f46;">
+    <h2>OUTRO</h2>
+    <span class="time">13:30 &ndash; 14:00</span>
+  </div>
+  <div class="chapter-body">
+
+    <!-- Shot: Sunset skyline -->
+    <div class="shot">
+      <div class="shot-img-wrap" style="border: 3px solid var(--blue); border-radius: 8px;">
+        <img src="https://images.unsplash.com/photo-1583264924319-c35c73e01834?w=800&q=80" alt="Guangzhou sunset skyline" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="fallback" style="display:none;">Guangzhou skyline at sunset &mdash; golden light on Pearl River</div>
+      </div>
+      <div class="shot-info">
+        <span class="type-badge stock">Stock footage</span>
+        <h3>Guangzhou skyline at sunset &rarr; WorldFirst end card</h3>
+        <p class="desc">Cinematic sunset over Pearl River. Canton Tower silhouette. Slow, reflective. Then transition to WorldFirst branded end card with subscribe button and two video recommendations.</p>
+        <div class="meta-tags">
+          <span class="tag">Duration: 8-10 sec</span>
+          <span class="tag">Sunset/golden hour</span>
+          <span class="tag">Dissolve to end card</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay-mockup">
+      <div class="position">Center screen</div>
+      China Sourcing Map Series / Next: Shenzhen
+      <div class="duration">Hold: 4 sec</div>
+    </div>
+
+    <div class="overlay-mockup">
+      <div class="position">Center screen &mdash; CTA</div>
+      Free &mdash; China Sourcing Map + China Sourcing Navigator / links in description
+      <div class="duration">Hold: 5 sec &mdash; final CTA before end card</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========== ASSET CHECKLIST ========== -->
+<div class="checklist" id="checklist">
+  <h2>Asset Checklist</h2>
+  <p style="font-size:13px; color:#6b7280; margin-bottom:16px;">Print this page and check off assets as they're sourced. Every item here needs to be ready before the edit.</p>
+
+  <div class="checklist-group">
+    <h3 class="stock">&#128309; Stock Footage (12 shots)</h3>
+    <div class="check-item"><input type="checkbox"> Aerial Guangzhou skyline / Pearl River (golden hour + sunset)</div>
+    <div class="check-item"><input type="checkbox"> Wholesale market interiors &mdash; busy corridors, stacked goods</div>
+    <div class="check-item"><input type="checkbox"> Historical Thirteen Factories painting (public domain)</div>
+    <div class="check-item"><input type="checkbox"> Canton Fair archival footage (B&amp;W, 1950s-60s era)</div>
+    <div class="check-item"><input type="checkbox"> Canton Fair modern halls &mdash; international buyers at booths</div>
+    <div class="check-item"><input type="checkbox"> Shisanhang exterior + retail floor + wholesale upper floors</div>
+    <div class="check-item"><input type="checkbox"> Baima (White Horse) Market exterior + interior</div>
+    <div class="check-item"><input type="checkbox"> Shahe market pre-dawn / early morning chaos</div>
+    <div class="check-item"><input type="checkbox"> Zhongda fabric market &mdash; bolts of fabric, tailoring</div>
+    <div class="check-item"><input type="checkbox"> Product montage: leather workshop, cosmetics line, denim factory, toy showroom, electronics</div>
+    <div class="check-item"><input type="checkbox"> Yuexiu District hotels / street scenes / street food</div>
+    <div class="check-item"><input type="checkbox"> Guangzhou skyline at sunset (outro &mdash; can reuse aerial with color grade)</div>
+  </div>
+
+  <div class="checklist-group">
+    <h3 class="graphic">&#128992; Graphics to Create (3 items)</h3>
+    <div class="check-item"><input type="checkbox"> PRD Factory Belt Map &mdash; animated, cities appear sequentially with specialties</div>
+    <div class="check-item"><input type="checkbox"> 4 Sourcing Lanes diagram &mdash; Markets / Trade shows / 1688 / Agents</div>
+    <div class="check-item"><input type="checkbox"> Guangzhou Hub Map with transport routes (can be variant of PRD map)</div>
+  </div>
+
+  <div class="checklist-group">
+    <h3 class="screen">&#128994; Screen Recordings (1 item)</h3>
+    <div class="check-item"><input type="checkbox"> 1688.com browsing with Google Translate &mdash; search, prices, supplier locations</div>
+  </div>
+
+  <div class="checklist-group">
+    <h3 class="overlay">&#128995; Text Overlays (15 items)</h3>
+    <div class="check-item"><input type="checkbox"> "China Sourcing Map: Guangzhou" (title card)</div>
+    <div class="check-item"><input type="checkbox"> "1757-1842: ALL Western trade forced through Guangzhou"</div>
+    <div class="check-item"><input type="checkbox"> "Shisanhang &mdash; Ground floor: 1-5 pcs / Upper floors: 100-400+ pcs"</div>
+    <div class="check-item"><input type="checkbox"> Chinese text: &#24590;&#20040;&#21457; > &#22810;&#23569;&#38065;</div>
+    <div class="check-item"><input type="checkbox"> "Canton Fair 2026 &mdash; Spring: Apr 15-May 5 / Autumn: Oct 15-Nov 4"</div>
+    <div class="check-item"><input type="checkbox"> Category list: apparel, leather, cosmetics, denim, electronics, toys...</div>
+    <div class="check-item"><input type="checkbox"> "Pearl River Delta &mdash; 42 million people, RMB 11.9 trillion GDP"</div>
+    <div class="check-item"><input type="checkbox"> "Free download &mdash; China Sourcing Map / link in description"</div>
+    <div class="check-item"><input type="checkbox"> "1688 = your due diligence tool / Know the floor price"</div>
+    <div class="check-item"><input type="checkbox"> "4 sourcing lanes: Markets / Trade shows / 1688 / Agents &amp; trading cos"</div>
+    <div class="check-item"><input type="checkbox"> "Best months &mdash; March, Oct-Dec / Avoid &mdash; CNY, Golden Week"</div>
+    <div class="check-item"><input type="checkbox"> "Stay &mdash; Yuexiu District / Budget backup &mdash; Foshan"</div>
+    <div class="check-item"><input type="checkbox"> "150,000+ Chinese suppliers / 1.5M+ customers / Free instant payments"</div>
+    <div class="check-item"><input type="checkbox"> "China Sourcing Map Series / Next: Shenzhen"</div>
+    <div class="check-item"><input type="checkbox"> "Free &mdash; China Sourcing Map + China Sourcing Navigator"</div>
+  </div>
+
+  <div class="checklist-group">
+    <h3 style="color: #dc2626;">&#128308; YouTube Cards &amp; End Screen</h3>
+    <div class="check-item"><input type="checkbox"> Card 1: Canton Fair video (CH1)</div>
+    <div class="check-item"><input type="checkbox"> Card 2: Canton Fair video (CH2)</div>
+    <div class="check-item"><input type="checkbox"> Card 3: 1688 Guide video (CH4)</div>
+    <div class="check-item"><input type="checkbox"> End screen: next episode + 1688 video + subscribe</div>
+    <div class="check-item"><input type="checkbox"> Pinned comment drafted and ready</div>
+  </div>
+</div>
+
+</body>
+</html>
