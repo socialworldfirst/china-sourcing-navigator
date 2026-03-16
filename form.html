@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSN Lead Capture — Form Mockup</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+    padding: 24px;
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(123, 47, 190, 0.15) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(255, 0, 81, 0.08) 0%, transparent 50%),
+      linear-gradient(135deg, #13002D 0%, #2D1052 40%, #1a0a3e 70%, #13002D 100%);
+  }
+
+  .card {
+    width: 100%;
+    max-width: 420px;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 40px 32px 32px;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.4);
+  }
+
+  .card h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1F2323;
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+
+  .card h1 .accent {
+    background: linear-gradient(125deg, #FF0051 56.31%, #13002D 124.43%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .card .subtitle {
+    font-size: 13px;
+    color: #69727D;
+    margin-bottom: 28px;
+    font-weight: 400;
+  }
+
+  .field { margin-bottom: 20px; }
+
+  .field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #484F56;
+    margin-bottom: 6px;
+  }
+
+  .field input,
+  .field select {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 14px;
+    font-family: 'Poppins', system-ui, sans-serif;
+    border: 1.5px solid #ECEDEE;
+    border-radius: 12px;
+    background: #F5F6F7;
+    color: #1F2323;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .field input::placeholder { color: #69727D; font-weight: 400; }
+
+  .field input:focus,
+  .field select:focus {
+    outline: none;
+    border-color: #FF0051;
+    box-shadow: 0 0 0 3px rgba(255, 0, 81, 0.08);
+    background: #fff;
+  }
+
+  .field select {
+    background: #F5F6F7 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2369727D' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") no-repeat right 14px center;
+    padding-right: 36px;
+    cursor: pointer;
+    color: #69727D;
+  }
+
+  .field select.selected { color: #1F2323; }
+
+  .btn {
+    width: 100%;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'Poppins', system-ui, sans-serif;
+    color: #fff;
+    background: #FF0051;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    margin-top: 4px;
+  }
+
+  .btn:hover { background: #E0004A; }
+  .btn:active { transform: scale(0.98); }
+
+  .privacy {
+    text-align: center;
+    font-size: 11px;
+    color: #69727D;
+    margin-top: 14px;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+
+  /* Success state */
+  .success {
+    display: none;
+    text-align: center;
+    padding: 20px 0;
+  }
+
+  .success .check {
+    width: 56px;
+    height: 56px;
+    background: rgba(255, 0, 81, 0.08);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+  }
+
+  .success .check svg { width: 28px; height: 28px; }
+
+  .success h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1F2323;
+    margin-bottom: 8px;
+  }
+
+  .success p {
+    font-size: 13px;
+    color: #69727D;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  .success .link {
+    font-size: 14px;
+    color: #FF0051;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .success .link:hover { text-decoration: underline; }
+
+  .form-fields.hidden { display: none; }
+  .success.visible { display: block; }
+
+  .reset {
+    display: none;
+    text-align: center;
+    margin-top: 12px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+    cursor: pointer;
+    font-family: 'Poppins', system-ui, sans-serif;
+  }
+  .reset:hover { color: rgba(255,255,255,0.6); }
+  .reset.visible { display: block; }
+
+  .badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border: 1.5px solid rgba(255, 0, 81, 0.3);
+    border-radius: 50px;
+    background: rgba(255, 0, 81, 0.06);
+    color: #FF0051;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    letter-spacing: 0.3px;
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="form-fields" id="formFields">
+    <span class="badge">China Sourcing Navigator</span>
+    <h1>Get Your Free <span class="accent">Sourcing Guide</span></h1>
+    <p class="subtitle">Instant download. No account required.</p>
+
+    <div class="field">
+      <label for="name">First name</label>
+      <input type="text" id="name" placeholder="e.g. Sarah" autocomplete="given-name">
+    </div>
+
+    <div class="field">
+      <label for="email">Email address</label>
+      <input type="email" id="email" placeholder="you@company.com" autocomplete="email">
+    </div>
+
+    <div class="field">
+      <label for="stage">Where are you in your sourcing journey?</label>
+      <select id="stage">
+        <option value="" disabled selected>Select one...</option>
+        <option value="researching">Just researching — haven't sourced yet</option>
+        <option value="platform">Buying through Alibaba or similar platforms</option>
+        <option value="direct">Sourcing direct from factories or suppliers</option>
+      </select>
+    </div>
+
+    <button class="btn" id="submitBtn">Download Free Guide</button>
+    <p class="privacy">No spam. Unsubscribe anytime. We respect your data.</p>
+  </div>
+
+  <div class="success" id="successState">
+    <div class="check">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#FF0051" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+    </div>
+    <h2>Your guide is downloading</h2>
+    <p>We've also sent a copy to your email.</p>
+    <a href="#" class="link">Explore more city guides &rarr;</a>
+  </div>
+
+  <div class="reset" id="resetLink">Reset mockup</div>
+</div>
+
+<script>
+  const stage = document.getElementById('stage');
+  const btn = document.getElementById('submitBtn');
+  const form = document.getElementById('formFields');
+  const success = document.getElementById('successState');
+  const reset = document.getElementById('resetLink');
+
+  stage.addEventListener('change', () => stage.classList.add('selected'));
+
+  btn.addEventListener('click', () => {
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const sel = stage.value;
+
+    if (!name || !email || !sel) {
+      btn.style.animation = 'shake 0.4s';
+      setTimeout(() => btn.style.animation = '', 400);
+      return;
+    }
+
+    form.classList.add('hidden');
+    success.classList.add('visible');
+    reset.classList.add('visible');
+  });
+
+  reset.addEventListener('click', () => {
+    form.classList.remove('hidden');
+    success.classList.remove('visible');
+    reset.classList.remove('visible');
+    document.getElementById('name').value = '';
+    document.getElementById('email').value = '';
+    stage.selectedIndex = 0;
+    stage.classList.remove('selected');
+  });
+</script>
+
+</body>
+</html>
