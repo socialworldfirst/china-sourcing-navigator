@@ -16,191 +16,93 @@ body {
   padding: 24px;
 }
 
-h1 {
-  font-size: 24px;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 4px;
-}
-
-.subtitle {
-  font-size: 13px;
-  color: #69727D;
-  margin-bottom: 24px;
-}
+h1 { font-size: 24px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.subtitle { font-size: 13px; color: #69727D; margin-bottom: 24px; }
 
 .controls {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 24px;
-  flex-wrap: wrap;
+  display: flex; gap: 10px; margin-bottom: 24px; flex-wrap: wrap;
+  position: sticky; top: 0; z-index: 50; background: #0f0a1a; padding: 12px 0;
 }
 
 .btn {
-  padding: 10px 20px;
-  font-size: 13px;
-  font-weight: 600;
-  font-family: 'Poppins', sans-serif;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: all 0.2s;
+  padding: 10px 20px; font-size: 13px; font-weight: 600;
+  font-family: 'Poppins', sans-serif; border: none; border-radius: 50px; cursor: pointer; transition: all 0.2s;
 }
-
-.btn-primary {
-  background: #FF0051;
-  color: #fff;
-}
+.btn-primary { background: #FF0051; color: #fff; }
 .btn-primary:hover { background: #E0004A; }
-
-.btn-secondary {
-  background: rgba(255,255,255,0.08);
-  color: #ccc;
-  border: 1px solid rgba(255,255,255,0.12);
-}
+.btn-secondary { background: rgba(255,255,255,0.08); color: #ccc; border: 1px solid rgba(255,255,255,0.12); }
 .btn-secondary:hover { background: rgba(255,255,255,0.14); }
-
-.btn-reset {
-  background: rgba(255,255,255,0.05);
-  color: #666;
-  border: 1px solid rgba(255,255,255,0.08);
-}
+.btn-reset { background: rgba(255,255,255,0.05); color: #666; border: 1px solid rgba(255,255,255,0.08); }
 .btn-reset:hover { background: rgba(255,255,255,0.1); color: #999; }
+.copied { background: #2E7D32 !important; color: #fff !important; }
 
-.copied {
-  background: #2E7D32 !important;
-  color: #fff !important;
+.progress {
+  font-size: 12px; color: #69727D; display: flex; align-items: center; gap: 8px; margin-left: auto;
+}
+.progress-bar {
+  width: 120px; height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden;
+}
+.progress-fill {
+  height: 100%; background: #FF0051; border-radius: 3px; transition: width 0.3s ease;
 }
 
-.layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
+/* Summary strip */
+.summary {
+  display: flex; gap: 16px; margin-bottom: 20px; flex-wrap: wrap;
 }
-
-@media (max-width: 900px) {
-  .layout { grid-template-columns: 1fr; }
+.summary-tier {
+  display: flex; align-items: center; gap: 6px; font-size: 12px; color: #888;
 }
-
-/* Tiers */
-.tier {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 16px;
-  padding: 16px;
-  min-height: 100px;
+.summary-dot {
+  width: 10px; height: 10px; border-radius: 3px;
 }
-
-.tier-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 12px;
-}
-
-.tier-badge {
-  font-size: 14px;
-  font-weight: 700;
-  padding: 4px 12px;
-  border-radius: 8px;
-  min-width: 32px;
-  text-align: center;
-}
-
-.tier-label {
-  font-size: 13px;
-  color: #999;
-  font-weight: 500;
-}
-
-.tier-count {
-  font-size: 11px;
-  color: #555;
-  margin-left: auto;
-}
-
-.tier-s .tier-badge { background: #FF0051; color: #fff; }
-.tier-a .tier-badge { background: #FF6A00; color: #fff; }
-.tier-b .tier-badge { background: #1565C0; color: #fff; }
-.tier-c .tier-badge { background: #555; color: #fff; }
-.tier-pool .tier-badge { background: rgba(255,255,255,0.1); color: #888; }
-
-.tier-s { border-color: rgba(255,0,81,0.3); }
-.tier-a { border-color: rgba(255,106,0,0.3); }
-.tier-b { border-color: rgba(21,101,192,0.3); }
-.tier-c { border-color: rgba(85,85,85,0.3); }
-
-.tier-items {
-  min-height: 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.tier-items.drag-over {
-  background: rgba(255,255,255,0.04);
-  border-radius: 8px;
-}
+.dot-s { background: #FF0051; }
+.dot-a { background: #FF6A00; }
+.dot-b { background: #1565C0; }
+.dot-c { background: #555; }
 
 /* Cards */
+.card-list {
+  display: flex; flex-direction: column; gap: 8px;
+}
+
 .sp-card {
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 10px;
-  padding: 10px 14px;
-  cursor: grab;
-  transition: all 0.15s;
+  border-radius: 12px;
+  padding: 12px 16px;
   display: flex;
-  align-items: flex-start;
-  gap: 10px;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.2s;
 }
 
 .sp-card:hover {
-  background: rgba(255,255,255,0.1);
-  border-color: rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.09);
+  border-color: rgba(255,255,255,0.18);
 }
 
-.sp-card.dragging {
-  opacity: 0.4;
-  transform: scale(0.96);
-}
+.sp-card.rated { opacity: 0.5; transform: scale(0.97); }
+.sp-card.rated:hover { opacity: 0.7; }
 
-.sp-card:active { cursor: grabbing; }
+.sp-card.tier-tagged-s { border-left: 3px solid #FF0051; }
+.sp-card.tier-tagged-a { border-left: 3px solid #FF6A00; }
+.sp-card.tier-tagged-b { border-left: 3px solid #1565C0; }
+.sp-card.tier-tagged-c { border-left: 3px solid #555; }
 
 .sp-num {
-  font-size: 10px;
-  font-weight: 700;
-  color: #555;
-  min-width: 20px;
-  padding-top: 2px;
+  font-size: 11px; font-weight: 700; color: #555; min-width: 22px;
 }
 
 .sp-content { flex: 1; }
 
-.sp-name {
-  font-size: 12px;
-  font-weight: 600;
-  color: #e0e0e0;
-  line-height: 1.4;
-}
-
-.sp-proof {
-  font-size: 10px;
-  color: #777;
-  margin-top: 2px;
-  line-height: 1.4;
-}
+.sp-name { font-size: 13px; font-weight: 600; color: #e0e0e0; line-height: 1.4; }
+.sp-proof { font-size: 10px; color: #777; margin-top: 2px; line-height: 1.4; }
 
 .sp-cat {
-  font-size: 9px;
-  font-weight: 600;
-  padding: 2px 8px;
-  border-radius: 50px;
-  white-space: nowrap;
-  margin-top: 4px;
-  display: inline-block;
+  font-size: 9px; font-weight: 600; padding: 2px 8px; border-radius: 50px;
+  white-space: nowrap; margin-top: 4px; display: inline-block;
 }
-
 .cat-fx { background: rgba(255,0,81,0.15); color: #FF6B8A; }
 .cat-1688 { background: rgba(255,106,0,0.15); color: #FFB366; }
 .cat-speed { background: rgba(21,101,192,0.15); color: #64B5F6; }
@@ -211,20 +113,49 @@ h1 {
 .cat-corridor { background: rgba(233,30,99,0.15); color: #F48FB1; }
 .cat-authority { background: rgba(158,158,158,0.15); color: #BDBDBD; }
 
+/* Tier buttons on each card */
+.tier-btns {
+  display: flex; gap: 4px; flex-shrink: 0;
+}
+
+.tier-btn {
+  width: 32px; height: 32px; border-radius: 8px; border: 1.5px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04); color: #888; font-size: 12px; font-weight: 700;
+  font-family: 'Poppins', sans-serif; cursor: pointer; transition: all 0.15s;
+  display: flex; align-items: center; justify-content: center;
+}
+.tier-btn:hover { background: rgba(255,255,255,0.12); color: #fff; }
+
+.tier-btn.active-s { background: #FF0051; border-color: #FF0051; color: #fff; }
+.tier-btn.active-a { background: #FF6A00; border-color: #FF6A00; color: #fff; }
+.tier-btn.active-b { background: #1565C0; border-color: #1565C0; color: #fff; }
+.tier-btn.active-c { background: #555; border-color: #555; color: #fff; }
+
+.tier-btn.active-s:hover { background: #E0004A; }
+.tier-btn.active-a:hover { background: #E05D00; }
+.tier-btn.active-b:hover { background: #0D47A1; }
+.tier-btn.active-c:hover { background: #444; }
+
+/* Filter tabs */
+.filter-tabs {
+  display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap;
+}
+.filter-tab {
+  padding: 6px 14px; font-size: 11px; font-weight: 600;
+  font-family: 'Poppins', sans-serif; border-radius: 50px; cursor: pointer;
+  background: rgba(255,255,255,0.05); color: #777; border: 1px solid rgba(255,255,255,0.08);
+  transition: all 0.15s;
+}
+.filter-tab:hover { background: rgba(255,255,255,0.1); color: #ccc; }
+.filter-tab.active { background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.25); }
+
 /* Toast */
 .toast {
-  position: fixed;
-  bottom: 24px;
-  left: 50%;
+  position: fixed; bottom: 24px; left: 50%;
   transform: translateX(-50%) translateY(100px);
-  background: #2E7D32;
-  color: #fff;
-  padding: 12px 24px;
-  border-radius: 50px;
-  font-size: 13px;
-  font-weight: 600;
-  transition: transform 0.3s ease;
-  z-index: 100;
+  background: #2E7D32; color: #fff; padding: 12px 24px;
+  border-radius: 50px; font-size: 13px; font-weight: 600;
+  transition: transform 0.3s ease; z-index: 100;
 }
 .toast.show { transform: translateX(-50%) translateY(0); }
 </style>
@@ -232,64 +163,36 @@ h1 {
 <body>
 
 <h1>WF Selling Points — Tier List</h1>
-<p class="subtitle">Drag selling points into tiers. Click "Copy for Claude" when done.</p>
+<p class="subtitle">Tap S / A / B / C on each card to rate it. Click "Copy for Claude" when done.</p>
 
 <div class="controls">
   <button class="btn btn-primary" id="copyBtn" onclick="copyResult()">Copy for Claude</button>
-  <button class="btn btn-secondary" onclick="autoRank()">Auto-rank (Claude's suggestion)</button>
+  <button class="btn btn-secondary" onclick="autoRank()">Auto-rank</button>
   <button class="btn btn-reset" onclick="resetAll()">Reset</button>
-</div>
-
-<div class="layout">
-  <div>
-    <div class="tier tier-s" style="margin-bottom:16px;">
-      <div class="tier-header">
-        <span class="tier-badge">S</span>
-        <span class="tier-label">Must send first — highest conversion potential</span>
-        <span class="tier-count" id="count-s">0</span>
-      </div>
-      <div class="tier-items" id="tier-s" data-tier="S"></div>
-    </div>
-
-    <div class="tier tier-a" style="margin-bottom:16px;">
-      <div class="tier-header">
-        <span class="tier-badge">A</span>
-        <span class="tier-label">Strong standalone emails</span>
-        <span class="tier-count" id="count-a">0</span>
-      </div>
-      <div class="tier-items" id="tier-a" data-tier="A"></div>
-    </div>
-
-    <div class="tier tier-b" style="margin-bottom:16px;">
-      <div class="tier-header">
-        <span class="tier-badge">B</span>
-        <span class="tier-label">Good for specific segments / supporting angles</span>
-        <span class="tier-count" id="count-b">0</span>
-      </div>
-      <div class="tier-items" id="tier-b" data-tier="B"></div>
-    </div>
-
-    <div class="tier tier-c">
-      <div class="tier-header">
-        <span class="tier-badge">C</span>
-        <span class="tier-label">Weave into other emails — don't send alone</span>
-        <span class="tier-count" id="count-c">0</span>
-      </div>
-      <div class="tier-items" id="tier-c" data-tier="C"></div>
-    </div>
-  </div>
-
-  <div>
-    <div class="tier tier-pool">
-      <div class="tier-header">
-        <span class="tier-badge">?</span>
-        <span class="tier-label">Unranked — drag these into tiers</span>
-        <span class="tier-count" id="count-pool">44</span>
-      </div>
-      <div class="tier-items" id="tier-pool" data-tier="pool"></div>
-    </div>
+  <div class="progress">
+    <span id="progressText">0 / 44 rated</span>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
   </div>
 </div>
+
+<div class="summary" id="summary">
+  <div class="summary-tier"><span class="summary-dot dot-s"></span> S: <strong id="sum-s">0</strong></div>
+  <div class="summary-tier"><span class="summary-dot dot-a"></span> A: <strong id="sum-a">0</strong></div>
+  <div class="summary-tier"><span class="summary-dot dot-b"></span> B: <strong id="sum-b">0</strong></div>
+  <div class="summary-tier"><span class="summary-dot dot-c"></span> C: <strong id="sum-c">0</strong></div>
+  <div class="summary-tier" style="color:#555">Unrated: <strong id="sum-none">44</strong></div>
+</div>
+
+<div class="filter-tabs" id="filterTabs">
+  <div class="filter-tab active" data-filter="all">All (44)</div>
+  <div class="filter-tab" data-filter="unrated">Unrated</div>
+  <div class="filter-tab" data-filter="s">S-Tier</div>
+  <div class="filter-tab" data-filter="a">A-Tier</div>
+  <div class="filter-tab" data-filter="b">B-Tier</div>
+  <div class="filter-tab" data-filter="c">C-Tier</div>
+</div>
+
+<div class="card-list" id="cardList"></div>
 
 <div class="toast" id="toast">Copied to clipboard</div>
 
@@ -349,159 +252,123 @@ const catLabels = {
 };
 
 const autoTiers = {
-  S: [7, 1, 6, 4, 12, 21],
-  A: [2, 15, 24, 16, 9, 8, 3],
-  B: [14, 13, 26, 5, 22, 32, 30, 34, 10, 35, 38, 37],
-  C: [20, 27, 28, 29, 17, 23, 33, 25, 11, 36, 39, 31, 42, 43, 44, 18, 19, 40, 41]
+  s: [7, 1, 6, 4, 12, 21],
+  a: [2, 15, 24, 16, 9, 8, 3],
+  b: [14, 13, 26, 5, 22, 32, 30, 34, 10, 35, 38, 37],
+  c: [20, 27, 28, 29, 17, 23, 33, 25, 11, 36, 39, 31, 42, 43, 44, 18, 19, 40, 41]
 };
 
-let draggedEl = null;
+// State
+const ratings = {}; // id -> 's'|'a'|'b'|'c'|null
+let currentFilter = 'all';
 
-function createCard(sp) {
-  const div = document.createElement('div');
-  div.className = 'sp-card';
-  div.draggable = true;
-  div.dataset.id = sp.id;
-  div.innerHTML = `
-    <span class="sp-num">${sp.id}</span>
-    <div class="sp-content">
-      <div class="sp-name">${sp.name}</div>
-      <div class="sp-proof">${sp.proof}</div>
-      <span class="sp-cat cat-${sp.cat}">${catLabels[sp.cat]}</span>
-    </div>
-  `;
+function render() {
+  const list = document.getElementById('cardList');
+  list.innerHTML = '';
 
-  div.addEventListener('dragstart', (e) => {
-    draggedEl = div;
-    div.classList.add('dragging');
-    e.dataTransfer.effectAllowed = 'move';
-  });
-
-  div.addEventListener('dragend', () => {
-    div.classList.remove('dragging');
-    draggedEl = null;
-    document.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
-    updateCounts();
-  });
-
-  // Touch support
-  let touchStartY = 0;
-  let touchClone = null;
-
-  div.addEventListener('touchstart', (e) => {
-    draggedEl = div;
-    touchStartY = e.touches[0].clientY;
-    div.classList.add('dragging');
-  }, { passive: true });
-
-  div.addEventListener('touchmove', (e) => {
-    e.preventDefault();
-    const touch = e.touches[0];
-    const target = document.elementFromPoint(touch.clientX, touch.clientY);
-    const tierItems = target?.closest('.tier-items');
-    document.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
-    if (tierItems) tierItems.classList.add('drag-over');
-  }, { passive: false });
-
-  div.addEventListener('touchend', (e) => {
-    const touch = e.changedTouches[0];
-    const target = document.elementFromPoint(touch.clientX, touch.clientY);
-    const tierItems = target?.closest('.tier-items');
-    if (tierItems && draggedEl) {
-      tierItems.appendChild(draggedEl);
-    }
-    div.classList.remove('dragging');
-    document.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
-    draggedEl = null;
-    updateCounts();
-  });
-
-  return div;
-}
-
-function setupDropZones() {
-  document.querySelectorAll('.tier-items').forEach(zone => {
-    zone.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      e.dataTransfer.dropEffect = 'move';
-      zone.classList.add('drag-over');
-
-      // Insert at position
-      const afterEl = getDragAfterElement(zone, e.clientY);
-      if (afterEl) {
-        zone.insertBefore(draggedEl, afterEl);
-      } else {
-        zone.appendChild(draggedEl);
-      }
-    });
-
-    zone.addEventListener('dragleave', (e) => {
-      if (!zone.contains(e.relatedTarget)) {
-        zone.classList.remove('drag-over');
-      }
-    });
-
-    zone.addEventListener('drop', (e) => {
-      e.preventDefault();
-      zone.classList.remove('drag-over');
-      updateCounts();
-    });
-  });
-}
-
-function getDragAfterElement(container, y) {
-  const els = [...container.querySelectorAll('.sp-card:not(.dragging)')];
-  let closest = null;
-  let closestOffset = Number.NEGATIVE_INFINITY;
-
-  els.forEach(el => {
-    const box = el.getBoundingClientRect();
-    const offset = y - box.top - box.height / 2;
-    if (offset < 0 && offset > closestOffset) {
-      closestOffset = offset;
-      closest = el;
-    }
-  });
-
-  return closest;
-}
-
-function updateCounts() {
-  ['s', 'a', 'b', 'c', 'pool'].forEach(tier => {
-    const count = document.getElementById(`tier-${tier}`).children.length;
-    document.getElementById(`count-${tier}`).textContent = count;
-  });
-}
-
-function init() {
-  const pool = document.getElementById('tier-pool');
   sellingPoints.forEach(sp => {
-    pool.appendChild(createCard(sp));
+    const tier = ratings[sp.id] || null;
+
+    // Filter
+    if (currentFilter === 'unrated' && tier) return;
+    if (['s','a','b','c'].includes(currentFilter) && tier !== currentFilter) return;
+
+    const card = document.createElement('div');
+    card.className = 'sp-card';
+    if (tier) card.classList.add('rated', `tier-tagged-${tier}`);
+    card.dataset.id = sp.id;
+
+    card.innerHTML = `
+      <span class="sp-num">${sp.id}</span>
+      <div class="sp-content">
+        <div class="sp-name">${sp.name}</div>
+        <div class="sp-proof">${sp.proof}</div>
+        <span class="sp-cat cat-${sp.cat}">${catLabels[sp.cat]}</span>
+      </div>
+      <div class="tier-btns">
+        <button class="tier-btn ${tier==='s'?'active-s':''}" data-tier="s" data-id="${sp.id}">S</button>
+        <button class="tier-btn ${tier==='a'?'active-a':''}" data-tier="a" data-id="${sp.id}">A</button>
+        <button class="tier-btn ${tier==='b'?'active-b':''}" data-tier="b" data-id="${sp.id}">B</button>
+        <button class="tier-btn ${tier==='c'?'active-c':''}" data-tier="c" data-id="${sp.id}">C</button>
+      </div>
+    `;
+
+    list.appendChild(card);
   });
-  setupDropZones();
-  updateCounts();
+
+  // Bind tier button clicks
+  document.querySelectorAll('.tier-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const id = +e.target.dataset.id;
+      const tier = e.target.dataset.tier;
+
+      // Toggle: if same tier clicked again, unrate
+      if (ratings[id] === tier) {
+        delete ratings[id];
+      } else {
+        ratings[id] = tier;
+      }
+      render();
+    });
+  });
+
+  updateStats();
 }
+
+function updateStats() {
+  const counts = { s: 0, a: 0, b: 0, c: 0, none: 0 };
+  sellingPoints.forEach(sp => {
+    const t = ratings[sp.id];
+    if (t) counts[t]++;
+    else counts.none++;
+  });
+
+  document.getElementById('sum-s').textContent = counts.s;
+  document.getElementById('sum-a').textContent = counts.a;
+  document.getElementById('sum-b').textContent = counts.b;
+  document.getElementById('sum-c').textContent = counts.c;
+  document.getElementById('sum-none').textContent = counts.none;
+
+  const rated = 44 - counts.none;
+  document.getElementById('progressText').textContent = `${rated} / 44 rated`;
+  document.getElementById('progressFill').style.width = `${(rated / 44) * 100}%`;
+
+  // Update filter tab counts
+  const tabs = document.querySelectorAll('.filter-tab');
+  tabs.forEach(tab => {
+    const f = tab.dataset.filter;
+    if (f === 'all') tab.textContent = `All (44)`;
+    else if (f === 'unrated') tab.textContent = `Unrated (${counts.none})`;
+    else if (f === 's') tab.textContent = `S-Tier (${counts.s})`;
+    else if (f === 'a') tab.textContent = `A-Tier (${counts.a})`;
+    else if (f === 'b') tab.textContent = `B-Tier (${counts.b})`;
+    else if (f === 'c') tab.textContent = `C-Tier (${counts.c})`;
+  });
+}
+
+// Filter tabs
+document.getElementById('filterTabs').addEventListener('click', (e) => {
+  const tab = e.target.closest('.filter-tab');
+  if (!tab) return;
+  document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  currentFilter = tab.dataset.filter;
+  render();
+});
 
 function autoRank() {
   Object.entries(autoTiers).forEach(([tier, ids]) => {
-    const container = document.getElementById(`tier-${tier.toLowerCase()}`);
-    ids.forEach(id => {
-      const card = document.querySelector(`[data-id="${id}"]`);
-      if (card) container.appendChild(card);
-    });
+    ids.forEach(id => { ratings[id] = tier; });
   });
-  updateCounts();
+  render();
 }
 
 function resetAll() {
-  const pool = document.getElementById('tier-pool');
-  document.querySelectorAll('.sp-card').forEach(card => {
-    pool.appendChild(card);
-  });
-  // Re-sort by ID
-  const cards = [...pool.children].sort((a, b) => +a.dataset.id - +b.dataset.id);
-  cards.forEach(c => pool.appendChild(c));
-  updateCounts();
+  Object.keys(ratings).forEach(k => delete ratings[k]);
+  currentFilter = 'all';
+  document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+  document.querySelector('[data-filter="all"]').classList.add('active');
+  render();
 }
 
 function copyResult() {
@@ -510,30 +377,25 @@ function copyResult() {
   let output = "Here's my tier ranking for the 44 WF selling points:\n\n";
 
   tiers.forEach(tier => {
-    const container = document.getElementById(`tier-${tier}`);
-    const cards = [...container.querySelectorAll('.sp-card')];
-    if (cards.length === 0) return;
-
+    const items = sellingPoints.filter(sp => ratings[sp.id] === tier);
+    if (items.length === 0) return;
     output += `**${tierLabels[tier]}:**\n`;
-    cards.forEach((card, i) => {
-      const id = card.dataset.id;
-      const sp = sellingPoints.find(s => s.id === +id);
+    items.forEach((sp, i) => {
       output += `${i + 1}. ${sp.name}\n`;
     });
     output += '\n';
   });
 
-  const pool = document.getElementById('tier-pool');
-  const unranked = [...pool.querySelectorAll('.sp-card')];
-  if (unranked.length > 0) {
-    output += `**UNRANKED (${unranked.length} remaining):**\n`;
-    unranked.forEach(card => {
-      const sp = sellingPoints.find(s => s.id === +card.dataset.id);
+  const unrated = sellingPoints.filter(sp => !ratings[sp.id]);
+  if (unrated.length > 0) {
+    output += `**UNRANKED (${unrated.length} remaining):**\n`;
+    unrated.forEach(sp => {
       output += `- ${sp.name}\n`;
     });
+    output += '\n';
   }
 
-  output += "\nPlease rebuild the email matrix using this ranking. S-tier = send first, A-tier = strong standalone, B-tier = segment-specific, C-tier = weave into other emails.";
+  output += "Please rebuild the email matrix using this ranking. S-tier = send first, A-tier = strong standalone, B-tier = segment-specific, C-tier = weave into other emails.";
 
   navigator.clipboard.writeText(output).then(() => {
     const btn = document.getElementById('copyBtn');
@@ -549,7 +411,7 @@ function copyResult() {
   });
 }
 
-init();
+render();
 </script>
 
 </body>
