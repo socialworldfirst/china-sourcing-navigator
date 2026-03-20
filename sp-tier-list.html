@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WF Selling Points — Tier List</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Poppins', system-ui, sans-serif;
+  background: #0f0a1a;
+  color: #e0e0e0;
+  min-height: 100vh;
+  padding: 24px;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: #69727D;
+  margin-bottom: 24px;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background: #FF0051;
+  color: #fff;
+}
+.btn-primary:hover { background: #E0004A; }
+
+.btn-secondary {
+  background: rgba(255,255,255,0.08);
+  color: #ccc;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+.btn-secondary:hover { background: rgba(255,255,255,0.14); }
+
+.btn-reset {
+  background: rgba(255,255,255,0.05);
+  color: #666;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.btn-reset:hover { background: rgba(255,255,255,0.1); color: #999; }
+
+.copied {
+  background: #2E7D32 !important;
+  color: #fff !important;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+}
+
+/* Tiers */
+.tier {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 16px;
+  min-height: 100px;
+}
+
+.tier-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.tier-badge {
+  font-size: 14px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 8px;
+  min-width: 32px;
+  text-align: center;
+}
+
+.tier-label {
+  font-size: 13px;
+  color: #999;
+  font-weight: 500;
+}
+
+.tier-count {
+  font-size: 11px;
+  color: #555;
+  margin-left: auto;
+}
+
+.tier-s .tier-badge { background: #FF0051; color: #fff; }
+.tier-a .tier-badge { background: #FF6A00; color: #fff; }
+.tier-b .tier-badge { background: #1565C0; color: #fff; }
+.tier-c .tier-badge { background: #555; color: #fff; }
+.tier-pool .tier-badge { background: rgba(255,255,255,0.1); color: #888; }
+
+.tier-s { border-color: rgba(255,0,81,0.3); }
+.tier-a { border-color: rgba(255,106,0,0.3); }
+.tier-b { border-color: rgba(21,101,192,0.3); }
+.tier-c { border-color: rgba(85,85,85,0.3); }
+
+.tier-items {
+  min-height: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tier-items.drag-over {
+  background: rgba(255,255,255,0.04);
+  border-radius: 8px;
+}
+
+/* Cards */
+.sp-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 10px 14px;
+  cursor: grab;
+  transition: all 0.15s;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.sp-card:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.2);
+}
+
+.sp-card.dragging {
+  opacity: 0.4;
+  transform: scale(0.96);
+}
+
+.sp-card:active { cursor: grabbing; }
+
+.sp-num {
+  font-size: 10px;
+  font-weight: 700;
+  color: #555;
+  min-width: 20px;
+  padding-top: 2px;
+}
+
+.sp-content { flex: 1; }
+
+.sp-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #e0e0e0;
+  line-height: 1.4;
+}
+
+.sp-proof {
+  font-size: 10px;
+  color: #777;
+  margin-top: 2px;
+  line-height: 1.4;
+}
+
+.sp-cat {
+  font-size: 9px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 50px;
+  white-space: nowrap;
+  margin-top: 4px;
+  display: inline-block;
+}
+
+.cat-fx { background: rgba(255,0,81,0.15); color: #FF6B8A; }
+.cat-1688 { background: rgba(255,106,0,0.15); color: #FFB366; }
+.cat-speed { background: rgba(21,101,192,0.15); color: #64B5F6; }
+.cat-network { background: rgba(123,47,190,0.15); color: #CE93D8; }
+.cat-safety { background: rgba(46,125,50,0.15); color: #81C784; }
+.cat-cost { background: rgba(255,193,7,0.15); color: #FFD54F; }
+.cat-ops { background: rgba(0,150,136,0.15); color: #80CBC4; }
+.cat-corridor { background: rgba(233,30,99,0.15); color: #F48FB1; }
+.cat-authority { background: rgba(158,158,158,0.15); color: #BDBDBD; }
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: #2E7D32;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: transform 0.3s ease;
+  z-index: 100;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<h1>WF Selling Points — Tier List</h1>
+<p class="subtitle">Drag selling points into tiers. Click "Copy for Claude" when done.</p>
+
+<div class="controls">
+  <button class="btn btn-primary" id="copyBtn" onclick="copyResult()">Copy for Claude</button>
+  <button class="btn btn-secondary" onclick="autoRank()">Auto-rank (Claude's suggestion)</button>
+  <button class="btn btn-reset" onclick="resetAll()">Reset</button>
+</div>
+
+<div class="layout">
+  <div>
+    <div class="tier tier-s" style="margin-bottom:16px;">
+      <div class="tier-header">
+        <span class="tier-badge">S</span>
+        <span class="tier-label">Must send first — highest conversion potential</span>
+        <span class="tier-count" id="count-s">0</span>
+      </div>
+      <div class="tier-items" id="tier-s" data-tier="S"></div>
+    </div>
+
+    <div class="tier tier-a" style="margin-bottom:16px;">
+      <div class="tier-header">
+        <span class="tier-badge">A</span>
+        <span class="tier-label">Strong standalone emails</span>
+        <span class="tier-count" id="count-a">0</span>
+      </div>
+      <div class="tier-items" id="tier-a" data-tier="A"></div>
+    </div>
+
+    <div class="tier tier-b" style="margin-bottom:16px;">
+      <div class="tier-header">
+        <span class="tier-badge">B</span>
+        <span class="tier-label">Good for specific segments / supporting angles</span>
+        <span class="tier-count" id="count-b">0</span>
+      </div>
+      <div class="tier-items" id="tier-b" data-tier="B"></div>
+    </div>
+
+    <div class="tier tier-c">
+      <div class="tier-header">
+        <span class="tier-badge">C</span>
+        <span class="tier-label">Weave into other emails — don't send alone</span>
+        <span class="tier-count" id="count-c">0</span>
+      </div>
+      <div class="tier-items" id="tier-c" data-tier="C"></div>
+    </div>
+  </div>
+
+  <div>
+    <div class="tier tier-pool">
+      <div class="tier-header">
+        <span class="tier-badge">?</span>
+        <span class="tier-label">Unranked — drag these into tiers</span>
+        <span class="tier-count" id="count-pool">44</span>
+      </div>
+      <div class="tier-items" id="tier-pool" data-tier="pool"></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">Copied to clipboard</div>
+
+<script>
+const sellingPoints = [
+  { id: 1, name: "Hidden 3-5% bank FX markup on every payment", proof: "Universal pain. Most importers don't know.", cat: "fx" },
+  { id: 2, name: "2-4% better rates than banks", proof: "Core product pitch. Easy to calculate savings.", cat: "fx" },
+  { id: 3, name: "Rate you see = rate you get (no hidden deductions)", proof: "Transparency as differentiator.", cat: "fx" },
+  { id: 4, name: "Double conversion (GBP→USD→CNY / AUD→USD→CNY on Alibaba)", proof: "UK/AU buyers hit twice. Region-specific killer.", cat: "fx" },
+  { id: 5, name: "Banks don't itemise FX cost — buried in the rate", proof: "Education angle. Makes hidden markup visible.", cat: "fx" },
+  { id: 6, name: "1688 World Pay — 0.4% vs 3% credit card", proof: "Specific. Quantified. Only WF offers this.", cat: "1688" },
+  { id: 7, name: "1688 = 20-40% cheaper than Alibaba (same factories)", proof: "Biggest shock value. Concrete number.", cat: "1688" },
+  { id: 8, name: "No Chinese bank account needed for 1688", proof: "Removes #1 blocker for 1688 access.", cat: "1688" },
+  { id: 9, name: "AI Sourcing Agent — search 1688 in English", proof: "Removes language barrier.", cat: "1688" },
+  { id: 10, name: "Official payment partner of 1688.com", proof: "Authority. Defensible. Exclusive.", cat: "1688" },
+  { id: 11, name: "No sourcing agent needed for payments", proof: "Saves 5-15% agent fee.", cat: "1688" },
+  { id: 12, name: "80% same-day settlement", proof: "Data-backed. Banks take 7-10 days.", cat: "speed" },
+  { id: 13, name: "90% within 24 hours", proof: "Supports same-day claim.", cat: "speed" },
+  { id: 14, name: "Instant between WF accounts", proof: "Conditional on supplier having WF.", cat: "speed" },
+  { id: 15, name: "No more WeChat chasing — instant confirmation", proof: "Emotional pain point. Every direct sourcer has lived this.", cat: "speed" },
+  { id: 16, name: "150,000+ verified Chinese suppliers on network", proof: "Network effect. 'Your supplier is probably here.'", cat: "network" },
+  { id: 17, name: "1.5M+ businesses on the platform", proof: "Social proof number.", cat: "network" },
+  { id: 18, name: "200+ countries & regions", proof: "Scale stat.", cat: "network" },
+  { id: 19, name: "20+ currencies supported", proof: "Feature breadth.", cat: "network" },
+  { id: 20, name: "Part of Ant International (Asia's largest payment network)", proof: "Credibility. Explains why it's fast.", cat: "network" },
+  { id: 21, name: "Business license verification before payment", proof: "Addresses #1 fear (fraud). Free.", cat: "safety" },
+  { id: 22, name: "Export license verification before payment", proof: "Compliance angle for serious importers.", cat: "safety" },
+  { id: 23, name: "Beneficiary account checked against registration", proof: "Technical detail of verification.", cat: "safety" },
+  { id: 24, name: "WorldTrade escrow (off-platform buyer protection)", proof: "The reason people stay on Alibaba. Removes it.", cat: "safety" },
+  { id: 25, name: "Licensed & regulated financial institution", proof: "Table stakes. Every competitor claims this.", cat: "safety" },
+  { id: 26, name: "Zero transfer fees between WF accounts", proof: "Conditional on supplier. Stacks with network.", cat: "cost" },
+  { id: 27, name: "No monthly fees", proof: "Objection remover.", cat: "cost" },
+  { id: 28, name: "No minimum balance", proof: "Objection remover.", cat: "cost" },
+  { id: 29, name: "Free to open account", proof: "Low-friction CTA.", cat: "cost" },
+  { id: 30, name: "Lock in rate today, pay later (forward contracts)", proof: "Working capital management.", cat: "fx" },
+  { id: 31, name: "Forward contracts for 3-12 months", proof: "Extension. High-volume importers.", cat: "fx" },
+  { id: 32, name: "See exact cost in your currency before sending", proof: "UX advantage. No surprises.", cat: "fx" },
+  { id: 33, name: "Money moves via local rails, not SWIFT", proof: "Explains WHY payments are fast.", cat: "ops" },
+  { id: 34, name: "Send to any Chinese bank account, Alipay, or WeChat Pay", proof: "Flexibility. All supplier methods.", cat: "ops" },
+  { id: 35, name: "One account: receive marketplace payouts + pay suppliers", proof: "Marketplace sellers who also source.", cat: "ops" },
+  { id: 36, name: "Hold, receive, send from one multi-currency account", proof: "Platform capability.", cat: "ops" },
+  { id: 37, name: "GBP→CNY direct (skip USD middle step)", proof: "UK-specific. Powerful for that corridor.", cat: "corridor" },
+  { id: 38, name: "AUD→CNY direct (big four banks worst markup)", proof: "AU-specific. Highest impact corridor.", cat: "corridor" },
+  { id: 39, name: "EUR→CNY direct (skip SEPA→SWIFT)", proof: "EU-specific.", cat: "corridor" },
+  { id: 40, name: "CNH (offshore yuan) support", proof: "Niche. Treasury teams only.", cat: "corridor" },
+  { id: 41, name: "MYbank routing for domestic CNY settlement", proof: "Too technical. Plumbing detail.", cat: "corridor" },
+  { id: 42, name: "Established since 2004", proof: "Trust signal but generic.", cat: "authority" },
+  { id: 43, name: "Proprietary transaction data on China corridor", proof: "Authority. Content play, not email.", cat: "authority" },
+  { id: 44, name: "Real FX rates from actual transactions", proof: "Content marketing angle.", cat: "authority" },
+];
+
+const catLabels = {
+  fx: "FX & Pricing", "1688": "1688", speed: "Speed",
+  network: "Network & Scale", safety: "Safety & Verification",
+  cost: "Cost Structure", ops: "Operational", corridor: "Corridor-Specific",
+  authority: "Authority"
+};
+
+const autoTiers = {
+  S: [7, 1, 6, 4, 12, 21],
+  A: [2, 15, 24, 16, 9, 8, 3],
+  B: [14, 13, 26, 5, 22, 32, 30, 34, 10, 35, 38, 37],
+  C: [20, 27, 28, 29, 17, 23, 33, 25, 11, 36, 39, 31, 42, 43, 44, 18, 19, 40, 41]
+};
+
+let draggedEl = null;
+
+function createCard(sp) {
+  const div = document.createElement('div');
+  div.className = 'sp-card';
+  div.draggable = true;
+  div.dataset.id = sp.id;
+  div.innerHTML = `
+    <span class="sp-num">${sp.id}</span>
+    <div class="sp-content">
+      <div class="sp-name">${sp.name}</div>
+      <div class="sp-proof">${sp.proof}</div>
+      <span class="sp-cat cat-${sp.cat}">${catLabels[sp.cat]}</span>
+    </div>
+  `;
+
+  div.addEventListener('dragstart', (e) => {
+    draggedEl = div;
+    div.classList.add('dragging');
+    e.dataTransfer.effectAllowed = 'move';
+  });
+
+  div.addEventListener('dragend', () => {
+    div.classList.remove('dragging');
+    draggedEl = null;
+    document.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
+    updateCounts();
+  });
+
+  // Touch support
+  let touchStartY = 0;
+  let touchClone = null;
+
+  div.addEventListener('touchstart', (e) => {
+    draggedEl = div;
+    touchStartY = e.touches[0].clientY;
+    div.classList.add('dragging');
+  }, { passive: true });
+
+  div.addEventListener('touchmove', (e) => {
+    e.preventDefault();
+    const touch = e.touches[0];
+    const target = document.elementFromPoint(touch.clientX, touch.clientY);
+    const tierItems = target?.closest('.tier-items');
+    document.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
+    if (tierItems) tierItems.classList.add('drag-over');
+  }, { passive: false });
+
+  div.addEventListener('touchend', (e) => {
+    const touch = e.changedTouches[0];
+    const target = document.elementFromPoint(touch.clientX, touch.clientY);
+    const tierItems = target?.closest('.tier-items');
+    if (tierItems && draggedEl) {
+      tierItems.appendChild(draggedEl);
+    }
+    div.classList.remove('dragging');
+    document.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
+    draggedEl = null;
+    updateCounts();
+  });
+
+  return div;
+}
+
+function setupDropZones() {
+  document.querySelectorAll('.tier-items').forEach(zone => {
+    zone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      zone.classList.add('drag-over');
+
+      // Insert at position
+      const afterEl = getDragAfterElement(zone, e.clientY);
+      if (afterEl) {
+        zone.insertBefore(draggedEl, afterEl);
+      } else {
+        zone.appendChild(draggedEl);
+      }
+    });
+
+    zone.addEventListener('dragleave', (e) => {
+      if (!zone.contains(e.relatedTarget)) {
+        zone.classList.remove('drag-over');
+      }
+    });
+
+    zone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      zone.classList.remove('drag-over');
+      updateCounts();
+    });
+  });
+}
+
+function getDragAfterElement(container, y) {
+  const els = [...container.querySelectorAll('.sp-card:not(.dragging)')];
+  let closest = null;
+  let closestOffset = Number.NEGATIVE_INFINITY;
+
+  els.forEach(el => {
+    const box = el.getBoundingClientRect();
+    const offset = y - box.top - box.height / 2;
+    if (offset < 0 && offset > closestOffset) {
+      closestOffset = offset;
+      closest = el;
+    }
+  });
+
+  return closest;
+}
+
+function updateCounts() {
+  ['s', 'a', 'b', 'c', 'pool'].forEach(tier => {
+    const count = document.getElementById(`tier-${tier}`).children.length;
+    document.getElementById(`count-${tier}`).textContent = count;
+  });
+}
+
+function init() {
+  const pool = document.getElementById('tier-pool');
+  sellingPoints.forEach(sp => {
+    pool.appendChild(createCard(sp));
+  });
+  setupDropZones();
+  updateCounts();
+}
+
+function autoRank() {
+  Object.entries(autoTiers).forEach(([tier, ids]) => {
+    const container = document.getElementById(`tier-${tier.toLowerCase()}`);
+    ids.forEach(id => {
+      const card = document.querySelector(`[data-id="${id}"]`);
+      if (card) container.appendChild(card);
+    });
+  });
+  updateCounts();
+}
+
+function resetAll() {
+  const pool = document.getElementById('tier-pool');
+  document.querySelectorAll('.sp-card').forEach(card => {
+    pool.appendChild(card);
+  });
+  // Re-sort by ID
+  const cards = [...pool.children].sort((a, b) => +a.dataset.id - +b.dataset.id);
+  cards.forEach(c => pool.appendChild(c));
+  updateCounts();
+}
+
+function copyResult() {
+  const tiers = ['s', 'a', 'b', 'c'];
+  const tierLabels = { s: 'S-TIER', a: 'A-TIER', b: 'B-TIER', c: 'C-TIER' };
+  let output = "Here's my tier ranking for the 44 WF selling points:\n\n";
+
+  tiers.forEach(tier => {
+    const container = document.getElementById(`tier-${tier}`);
+    const cards = [...container.querySelectorAll('.sp-card')];
+    if (cards.length === 0) return;
+
+    output += `**${tierLabels[tier]}:**\n`;
+    cards.forEach((card, i) => {
+      const id = card.dataset.id;
+      const sp = sellingPoints.find(s => s.id === +id);
+      output += `${i + 1}. ${sp.name}\n`;
+    });
+    output += '\n';
+  });
+
+  const pool = document.getElementById('tier-pool');
+  const unranked = [...pool.querySelectorAll('.sp-card')];
+  if (unranked.length > 0) {
+    output += `**UNRANKED (${unranked.length} remaining):**\n`;
+    unranked.forEach(card => {
+      const sp = sellingPoints.find(s => s.id === +card.dataset.id);
+      output += `- ${sp.name}\n`;
+    });
+  }
+
+  output += "\nPlease rebuild the email matrix using this ranking. S-tier = send first, A-tier = strong standalone, B-tier = segment-specific, C-tier = weave into other emails.";
+
+  navigator.clipboard.writeText(output).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => {
+      toast.classList.remove('show');
+      btn.textContent = 'Copy for Claude';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+init();
+</script>
+
+</body>
+</html>
